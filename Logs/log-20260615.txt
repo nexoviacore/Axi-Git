@@ -1,0 +1,23 @@
+2026-06-15 22:06:05.965 +05:30 [INF] Now listening on: https://localhost:7117
+2026-06-15 22:06:06.121 +05:30 [INF] Now listening on: http://localhost:5035
+2026-06-15 22:06:06.870 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-06-15 22:06:06.871 +05:30 [INF] Hosting environment: Development
+2026-06-15 22:06:06.871 +05:30 [INF] Content root path: C:\Users\Dhanya.j\source\repos\AxiGitAPI
+2026-06-15 22:06:11.051 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7117/swagger - null null
+2026-06-15 22:06:12.015 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7117/swagger - 404 0 null 986.9032ms
+2026-06-15 22:06:12.021 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7117/swagger, Response status code: 404
+2026-06-15 22:07:15.623 +05:30 [INF] Request starting HTTP/1.1 POST https://localhost:7117/api/git/push - application/json 260
+2026-06-15 22:07:15.644 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-06-15 22:07:15.745 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-06-15 22:07:15.896 +05:30 [INF] Push request received for package: Axi_Package1
+2026-06-15 22:07:15.927 +05:30 [INF] Push process started for package: Axi_Package1
+2026-06-15 22:07:17.025 +05:30 [INF] Empty repository detected. Creating initial commit.
+2026-06-15 22:07:19.418 +05:30 [INF] Initial commit pushed successfully.
+2026-06-15 22:07:20.795 +05:30 [INF] Commit created: 6fe97d44b70ad3646fe4dd0a6f03cf3789495f2b
+2026-06-15 22:07:22.495 +05:30 [INF] Package pushed successfully: Axi_Package1
+2026-06-15 22:07:25.312 +05:30 [INF] axiPackages.json updated successfully for package Axi_Package1
+2026-06-15 22:07:25.313 +05:30 [INF] Package Details updated successfully in axiPackages.json for Axi_Package1
+2026-06-15 22:07:25.327 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-06-15 22:07:25.353 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 9599.41ms
+2026-06-15 22:07:25.353 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-06-15 22:07:25.354 +05:30 [INF] Request finished HTTP/1.1 POST https://localhost:7117/api/git/push - 200 null application/json; charset=utf-8 9730.8376ms

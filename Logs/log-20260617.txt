@@ -1,0 +1,8 @@
+2026-06-17 10:14:51.712 +05:30 [INF] Now listening on: https://localhost:7117
+2026-06-17 10:14:51.839 +05:30 [INF] Now listening on: http://localhost:5035
+2026-06-17 10:14:52.279 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-06-17 10:14:52.280 +05:30 [INF] Hosting environment: Development
+2026-06-17 10:14:52.280 +05:30 [INF] Content root path: C:\Users\Dhanya.j\source\repos\AxiGitAPI
+2026-06-17 10:15:16.816 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7117/swagger - null null
+2026-06-17 10:15:18.614 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7117/swagger - 404 0 null 1819.9543ms
+2026-06-17 10:15:18.732 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7117/swagger, Response status code: 404

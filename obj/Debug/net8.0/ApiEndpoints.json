@@ -1,0 +1,50 @@
+[
+  {
+    "ContainingType": "AxiGitAPI.Controllers.RepositoryListController",
+    "Method": "ListRepositories",
+    "RelativePath": "api/git/listrepositories",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "AxiGitAPI.Models.ListRepositoriesRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AxiGitAPI.Controllers.GitPullController",
+    "Method": "PullPackage",
+    "RelativePath": "api/git/pull",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "AxiGitAPI.Models.PullPackageRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AxiGitAPI.Controllers.GitPushController",
+    "Method": "Push",
+    "RelativePath": "api/git/push",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "AxiGitAPI.Models.PushFolderRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

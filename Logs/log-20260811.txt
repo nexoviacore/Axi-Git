@@ -1,0 +1,74 @@
+2026-08-11 10:32:58.887 +05:30 [INF] Now listening on: https://localhost:7117
+2026-08-11 10:32:59.026 +05:30 [INF] Now listening on: http://localhost:5035
+2026-08-11 10:32:59.565 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-08-11 10:32:59.591 +05:30 [INF] Hosting environment: Development
+2026-08-11 10:32:59.592 +05:30 [INF] Content root path: C:\Users\Dhanya.j\source\repos\AxiGitAPI
+2026-08-11 10:33:05.265 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7117/swagger - null null
+2026-08-11 10:33:05.795 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7117/swagger - 404 0 null 549.9557ms
+2026-08-11 10:33:05.800 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7117/swagger, Response status code: 404
+2026-08-11 10:39:48.737 +05:30 [INF] Now listening on: https://localhost:7117
+2026-08-11 10:39:48.817 +05:30 [INF] Now listening on: http://localhost:5035
+2026-08-11 10:39:49.076 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-08-11 10:39:49.077 +05:30 [INF] Hosting environment: Development
+2026-08-11 10:39:49.077 +05:30 [INF] Content root path: C:\Users\Dhanya.j\source\repos\AxiGitAPI
+2026-08-11 10:39:50.737 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7117/swagger - null null
+2026-08-11 10:39:51.268 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7117/swagger - 404 0 null 553.7095ms
+2026-08-11 10:39:51.273 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7117/swagger, Response status code: 404
+2026-08-11 10:40:05.977 +05:30 [INF] Request starting HTTP/1.1 POST https://localhost:7117/api/git/push - application/json 289
+2026-08-11 10:40:06.002 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-08-11 10:40:06.113 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-08-11 10:40:06.268 +05:30 [INF] Push request received for package: Axi_Package_test-123
+2026-08-11 10:40:06.307 +05:30 [INF] Push process started for package: Axi_Package_test-123
+2026-08-11 10:40:14.190 +05:30 [INF] Commit created: e5ca84f367fcebcae8e1c964d416505ab9ad49da
+2026-08-11 10:40:15.209 +05:30 [ERR] Error occurred while pushing package
+LibGit2Sharp.LibGit2SharpException: unexpected http status code: 403
+   at LibGit2Sharp.Core.Ensure.HandleError(Int32 result) in /_/LibGit2Sharp/Core/Ensure.cs:line 154
+   at LibGit2Sharp.Core.Ensure.ZeroResult(Int32 result) in /_/LibGit2Sharp/Core/Ensure.cs:line 172
+   at LibGit2Sharp.Core.Proxy.git_remote_push(RemoteHandle remote, IEnumerable`1 refSpecs, GitPushOptions opts) in /_/LibGit2Sharp/Core/Proxy.cs:line 2246
+   at LibGit2Sharp.Network.Push(Remote remote, IEnumerable`1 pushRefSpecs, PushOptions pushOptions) in /_/LibGit2Sharp/Network.cs:line 469
+   at LibGit2Sharp.Network.Push(Remote remote, String pushRefSpec, PushOptions pushOptions) in /_/LibGit2Sharp/Network.cs:line 414
+   at AxiGitAPI.Services.GitPushService.PushChanges(Repository repo, String username, String token) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 256
+   at AxiGitAPI.Services.GitPushService.PushFolderToGitHub(String physicalPath, String targetRepo, String packageName, String packageDescription, String packageVersion, String packageAuthor, String gitBranch) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 93
+2026-08-11 10:40:15.701 +05:30 [ERR] Error occurred while pushing package: Axi_Package_test-123
+LibGit2Sharp.LibGit2SharpException: unexpected http status code: 403
+   at LibGit2Sharp.Core.Ensure.HandleError(Int32 result) in /_/LibGit2Sharp/Core/Ensure.cs:line 154
+   at LibGit2Sharp.Core.Ensure.ZeroResult(Int32 result) in /_/LibGit2Sharp/Core/Ensure.cs:line 172
+   at LibGit2Sharp.Core.Proxy.git_remote_push(RemoteHandle remote, IEnumerable`1 refSpecs, GitPushOptions opts) in /_/LibGit2Sharp/Core/Proxy.cs:line 2246
+   at LibGit2Sharp.Network.Push(Remote remote, IEnumerable`1 pushRefSpecs, PushOptions pushOptions) in /_/LibGit2Sharp/Network.cs:line 469
+   at LibGit2Sharp.Network.Push(Remote remote, String pushRefSpec, PushOptions pushOptions) in /_/LibGit2Sharp/Network.cs:line 414
+   at AxiGitAPI.Services.GitPushService.PushChanges(Repository repo, String username, String token) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 256
+   at AxiGitAPI.Services.GitPushService.PushFolderToGitHub(String physicalPath, String targetRepo, String packageName, String packageDescription, String packageVersion, String packageAuthor, String gitBranch) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 93
+   at AxiGitAPI.Controllers.GitPushController.Push(PushFolderRequest request) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Controllers\GitPushController.cs:line 34
+2026-08-11 10:40:15.716 +05:30 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-08-11 10:40:15.744 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 9620.8207ms
+2026-08-11 10:40:15.744 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-08-11 10:40:15.745 +05:30 [INF] Request finished HTTP/1.1 POST https://localhost:7117/api/git/push - 400 null application/json; charset=utf-8 9768.0277ms
+2026-08-11 10:41:32.416 +05:30 [INF] Request starting HTTP/1.1 POST https://localhost:7117/api/git/push - application/json 285
+2026-08-11 10:41:32.419 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-08-11 10:41:32.420 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-08-11 10:41:32.422 +05:30 [INF] Push request received for package: Axi_Package_test-123
+2026-08-11 10:41:32.422 +05:30 [INF] Push process started for package: Axi_Package_test-123
+2026-08-11 10:41:38.024 +05:30 [INF] Commit created: 4d7a7525da8e225c0d205d4fbb8e3134bc31d963
+2026-08-11 10:41:38.892 +05:30 [ERR] Error occurred while pushing package
+LibGit2Sharp.LibGit2SharpException: unexpected http status code: 403
+   at LibGit2Sharp.Core.Ensure.HandleError(Int32 result) in /_/LibGit2Sharp/Core/Ensure.cs:line 154
+   at LibGit2Sharp.Core.Ensure.ZeroResult(Int32 result) in /_/LibGit2Sharp/Core/Ensure.cs:line 172
+   at LibGit2Sharp.Core.Proxy.git_remote_push(RemoteHandle remote, IEnumerable`1 refSpecs, GitPushOptions opts) in /_/LibGit2Sharp/Core/Proxy.cs:line 2246
+   at LibGit2Sharp.Network.Push(Remote remote, IEnumerable`1 pushRefSpecs, PushOptions pushOptions) in /_/LibGit2Sharp/Network.cs:line 469
+   at LibGit2Sharp.Network.Push(Remote remote, String pushRefSpec, PushOptions pushOptions) in /_/LibGit2Sharp/Network.cs:line 414
+   at AxiGitAPI.Services.GitPushService.PushChanges(Repository repo, String username, String token) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 256
+   at AxiGitAPI.Services.GitPushService.PushFolderToGitHub(String physicalPath, String targetRepo, String packageName, String packageDescription, String packageVersion, String packageAuthor, String gitBranch) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 93
+2026-08-11 10:41:38.965 +05:30 [ERR] Error occurred while pushing package: Axi_Package_test-123
+LibGit2Sharp.LibGit2SharpException: unexpected http status code: 403
+   at LibGit2Sharp.Core.Ensure.HandleError(Int32 result) in /_/LibGit2Sharp/Core/Ensure.cs:line 154
+   at LibGit2Sharp.Core.Ensure.ZeroResult(Int32 result) in /_/LibGit2Sharp/Core/Ensure.cs:line 172
+   at LibGit2Sharp.Core.Proxy.git_remote_push(RemoteHandle remote, IEnumerable`1 refSpecs, GitPushOptions opts) in /_/LibGit2Sharp/Core/Proxy.cs:line 2246
+   at LibGit2Sharp.Network.Push(Remote remote, IEnumerable`1 pushRefSpecs, PushOptions pushOptions) in /_/LibGit2Sharp/Network.cs:line 469
+   at LibGit2Sharp.Network.Push(Remote remote, String pushRefSpec, PushOptions pushOptions) in /_/LibGit2Sharp/Network.cs:line 414
+   at AxiGitAPI.Services.GitPushService.PushChanges(Repository repo, String username, String token) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 256
+   at AxiGitAPI.Services.GitPushService.PushFolderToGitHub(String physicalPath, String targetRepo, String packageName, String packageDescription, String packageVersion, String packageAuthor, String gitBranch) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 93
+   at AxiGitAPI.Controllers.GitPushController.Push(PushFolderRequest request) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Controllers\GitPushController.cs:line 34
+2026-08-11 10:41:38.966 +05:30 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-08-11 10:41:38.967 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 6546.6019ms
+2026-08-11 10:41:38.968 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-08-11 10:41:38.968 +05:30 [INF] Request finished HTTP/1.1 POST https://localhost:7117/api/git/push - 400 null application/json; charset=utf-8 6552.3306ms
