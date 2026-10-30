@@ -1,0 +1,83 @@
+2026-09-24 16:45:50.277 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-09-24 16:45:50.382 +05:30 [INF] Hosting environment: Production
+2026-09-24 16:45:50.384 +05:30 [INF] Content root path: C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Release\net8.0
+2026-09-24 16:45:50.483 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5151/ - null null
+2026-09-24 16:45:50.533 +05:30 [WRN] Failed to determine the https port for redirect.
+2026-09-24 16:45:50.596 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5151/ - 404 null null 129.7374ms
+2026-09-24 16:45:50.623 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5151/, Response status code: 404
+2026-09-24 16:45:59.861 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5151/api/git/listrepositories - application/json 118
+2026-09-24 16:45:59.883 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.RepositoryListController.ListRepositories (AxiGitAPI)'
+2026-09-24 16:46:00.076 +05:30 [INF] Route matched with {action = "ListRepositories", controller = "RepositoryList"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ListRepositories(AxiGitAPI.Models.ListRepositoriesRequest) on controller AxiGitAPI.Controllers.RepositoryListController (AxiGitAPI).
+2026-09-24 16:46:00.516 +05:30 [INF] Starting repository search for account 'dhanya-agile' and manager type 'Product'.
+2026-09-24 16:46:00.558 +05:30 [INF] Start processing HTTP request GET https://api.github.com/user
+2026-09-24 16:46:00.565 +05:30 [INF] Sending HTTP request GET https://api.github.com/user
+2026-09-24 16:46:01.813 +05:30 [INF] Received HTTP response headers after 1243.486ms - 200
+2026-09-24 16:46:01.814 +05:30 [INF] End processing HTTP request after 1270.1079ms - 200
+2026-09-24 16:46:01.837 +05:30 [INF] GitHub authentication successful for account 'dhanya-agile'.
+2026-09-24 16:46:01.840 +05:30 [INF] Start processing HTTP request GET https://api.github.com/user/repos?per_page=100&page=1
+2026-09-24 16:46:01.840 +05:30 [INF] Sending HTTP request GET https://api.github.com/user/repos?per_page=100&page=1
+2026-09-24 16:46:02.638 +05:30 [INF] Received HTTP response headers after 796.6829ms - 200
+2026-09-24 16:46:02.638 +05:30 [INF] End processing HTTP request after 798.0694ms - 200
+2026-09-24 16:46:03.154 +05:30 [INF] Found 11 repositories for account 'dhanya-agile'.
+2026-09-24 16:46:03.154 +05:30 [INF] Checking repository 'AI-HtmlAPI'.
+2026-09-24 16:46:03.156 +05:30 [INF] Start processing HTTP request GET https://api.github.com/repos/dhanya-agile/AI-HtmlAPI/contents/axi-Productrepository.json
+2026-09-24 16:46:03.156 +05:30 [INF] Sending HTTP request GET https://api.github.com/repos/dhanya-agile/AI-HtmlAPI/contents/axi-Productrepository.json
+2026-09-24 16:46:03.613 +05:30 [INF] Received HTTP response headers after 456.919ms - 404
+2026-09-24 16:46:03.613 +05:30 [INF] End processing HTTP request after 457.466ms - 404
+2026-09-24 16:46:03.614 +05:30 [INF] Checking repository 'AI-Propmt-Config'.
+2026-09-24 16:46:03.614 +05:30 [INF] Start processing HTTP request GET https://api.github.com/repos/dhanya-agile/AI-Propmt-Config/contents/axi-Productrepository.json
+2026-09-24 16:46:03.614 +05:30 [INF] Sending HTTP request GET https://api.github.com/repos/dhanya-agile/AI-Propmt-Config/contents/axi-Productrepository.json
+2026-09-24 16:46:04.011 +05:30 [INF] Received HTTP response headers after 396.7144ms - 404
+2026-09-24 16:46:04.011 +05:30 [INF] End processing HTTP request after 397.2987ms - 404
+2026-09-24 16:46:04.012 +05:30 [INF] Checking repository 'Axi-Product'.
+2026-09-24 16:46:04.012 +05:30 [INF] Start processing HTTP request GET https://api.github.com/repos/dhanya-agile/Axi-Product/contents/axi-Productrepository.json
+2026-09-24 16:46:04.012 +05:30 [INF] Sending HTTP request GET https://api.github.com/repos/dhanya-agile/Axi-Product/contents/axi-Productrepository.json
+2026-09-24 16:46:04.426 +05:30 [INF] Received HTTP response headers after 414.1056ms - 404
+2026-09-24 16:46:04.427 +05:30 [INF] End processing HTTP request after 414.7185ms - 404
+2026-09-24 16:46:04.427 +05:30 [INF] Checking repository 'B2E-SmsAPI'.
+2026-09-24 16:46:04.427 +05:30 [INF] Start processing HTTP request GET https://api.github.com/repos/dhanya-agile/B2E-SmsAPI/contents/axi-Productrepository.json
+2026-09-24 16:46:04.427 +05:30 [INF] Sending HTTP request GET https://api.github.com/repos/dhanya-agile/B2E-SmsAPI/contents/axi-Productrepository.json
+2026-09-24 16:46:05.257 +05:30 [INF] Received HTTP response headers after 829.1878ms - 404
+2026-09-24 16:46:05.257 +05:30 [INF] End processing HTTP request after 829.875ms - 404
+2026-09-24 16:46:05.257 +05:30 [INF] Checking repository 'FetchDataApi'.
+2026-09-24 16:46:05.258 +05:30 [INF] Start processing HTTP request GET https://api.github.com/repos/dhanya-agile/FetchDataApi/contents/axi-Productrepository.json
+2026-09-24 16:46:05.258 +05:30 [INF] Sending HTTP request GET https://api.github.com/repos/dhanya-agile/FetchDataApi/contents/axi-Productrepository.json
+2026-09-24 16:46:05.670 +05:30 [INF] Received HTTP response headers after 412.0711ms - 404
+2026-09-24 16:46:05.671 +05:30 [INF] End processing HTTP request after 413.0197ms - 404
+2026-09-24 16:46:05.671 +05:30 [INF] Checking repository 'New-AxiProduct'.
+2026-09-24 16:46:05.671 +05:30 [INF] Start processing HTTP request GET https://api.github.com/repos/dhanya-agile/New-AxiProduct/contents/axi-Productrepository.json
+2026-09-24 16:46:05.671 +05:30 [INF] Sending HTTP request GET https://api.github.com/repos/dhanya-agile/New-AxiProduct/contents/axi-Productrepository.json
+2026-09-24 16:46:06.063 +05:30 [INF] Received HTTP response headers after 391.3086ms - 404
+2026-09-24 16:46:06.063 +05:30 [INF] End processing HTTP request after 391.809ms - 404
+2026-09-24 16:46:06.063 +05:30 [INF] Checking repository 'ProductRepo'.
+2026-09-24 16:46:06.063 +05:30 [INF] Start processing HTTP request GET https://api.github.com/repos/dhanya-agile/ProductRepo/contents/axi-Productrepository.json
+2026-09-24 16:46:06.063 +05:30 [INF] Sending HTTP request GET https://api.github.com/repos/dhanya-agile/ProductRepo/contents/axi-Productrepository.json
+2026-09-24 16:46:08.444 +05:30 [INF] Received HTTP response headers after 2380.2481ms - 404
+2026-09-24 16:46:08.445 +05:30 [INF] End processing HTTP request after 2381.216ms - 404
+2026-09-24 16:46:08.445 +05:30 [INF] Checking repository 'ProductRepo1'.
+2026-09-24 16:46:08.445 +05:30 [INF] Start processing HTTP request GET https://api.github.com/repos/dhanya-agile/ProductRepo1/contents/axi-Productrepository.json
+2026-09-24 16:46:08.445 +05:30 [INF] Sending HTTP request GET https://api.github.com/repos/dhanya-agile/ProductRepo1/contents/axi-Productrepository.json
+2026-09-24 16:46:08.836 +05:30 [INF] Received HTTP response headers after 390.5248ms - 200
+2026-09-24 16:46:08.836 +05:30 [INF] End processing HTTP request after 391.0069ms - 200
+2026-09-24 16:46:08.846 +05:30 [INF] Repository 'ProductRepo1' matched manager type 'Product'.
+2026-09-24 16:46:08.847 +05:30 [INF] Checking repository 'ProductRepo2'.
+2026-09-24 16:46:08.847 +05:30 [INF] Start processing HTTP request GET https://api.github.com/repos/dhanya-agile/ProductRepo2/contents/axi-Productrepository.json
+2026-09-24 16:46:08.847 +05:30 [INF] Sending HTTP request GET https://api.github.com/repos/dhanya-agile/ProductRepo2/contents/axi-Productrepository.json
+2026-09-24 16:46:09.258 +05:30 [INF] Received HTTP response headers after 411.0541ms - 200
+2026-09-24 16:46:09.258 +05:30 [INF] End processing HTTP request after 411.4726ms - 200
+2026-09-24 16:46:09.259 +05:30 [INF] Repository 'ProductRepo2' matched manager type 'Product'.
+2026-09-24 16:46:09.259 +05:30 [INF] Checking repository 'SmsAPI-Twilio'.
+2026-09-24 16:46:09.259 +05:30 [INF] Start processing HTTP request GET https://api.github.com/repos/dhanya-agile/SmsAPI-Twilio/contents/axi-Productrepository.json
+2026-09-24 16:46:09.259 +05:30 [INF] Sending HTTP request GET https://api.github.com/repos/dhanya-agile/SmsAPI-Twilio/contents/axi-Productrepository.json
+2026-09-24 16:46:09.678 +05:30 [INF] Received HTTP response headers after 419.0402ms - 404
+2026-09-24 16:46:09.679 +05:30 [INF] End processing HTTP request after 419.7155ms - 404
+2026-09-24 16:46:09.679 +05:30 [INF] Checking repository 'TestRepo'.
+2026-09-24 16:46:09.680 +05:30 [INF] Start processing HTTP request GET https://api.github.com/repos/dhanya-agile/TestRepo/contents/axi-Productrepository.json
+2026-09-24 16:46:09.680 +05:30 [INF] Sending HTTP request GET https://api.github.com/repos/dhanya-agile/TestRepo/contents/axi-Productrepository.json
+2026-09-24 16:46:10.146 +05:30 [INF] Received HTTP response headers after 465.7398ms - 404
+2026-09-24 16:46:10.146 +05:30 [INF] End processing HTTP request after 466.3507ms - 404
+2026-09-24 16:46:10.158 +05:30 [INF] Executing OkObjectResult, writing value of type 'AxiGitAPI.Models.ListRepositoriesResponse'.
+2026-09-24 16:46:10.232 +05:30 [INF] Executed action AxiGitAPI.Controllers.RepositoryListController.ListRepositories (AxiGitAPI) in 10148.6266ms
+2026-09-24 16:46:10.233 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.RepositoryListController.ListRepositories (AxiGitAPI)'
+2026-09-24 16:46:10.238 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5151/api/git/listrepositories - 200 null application/json; charset=utf-8 10378.114ms
+2026-09-24 17:06:46.985 +05:30 [INF] Application is shutting down...

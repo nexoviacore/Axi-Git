@@ -1,18 +1,5 @@
 C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Debug\net8.0\appsettings.json
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Debug\net8.0\GIT_Directory\AxpertPackages\axiPackages.json
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Debug\net8.0\GIT_Directory\AxpertPackages\ERP 0099\ERP 0099_1.0.0.json
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Debug\net8.0\GIT_Directory\AxpertPackages\sales29_package\sales29_package.json
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Debug\net8.0\GIT_Directory\AxpertPackages\sales37_package\sales26_package.json
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Debug\net8.0\GIT_Directory\AxpertPackages\sales37_package\sales37_package.json
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Debug\net8.0\GIT_Directory\AxpertPackages\sales38_package\sales26_package.json
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Debug\net8.0\GIT_Directory\AxpertPackages\sales38_package\sales37_package.json
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Debug\net8.0\GIT_Directory\AxpertPackages\sales38_package\sales37_package_1.0.0.json
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Debug\net8.0\GIT_Directory\AxpertPackages\sales38_package\sales38_package_1.0.0.json
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Debug\net8.0\TestingDir\AxpertPackages\aximain\axiPackages.json
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Debug\net8.0\TestingDir\AxpertPackages\aximain\Axi_Package_test-123\AxiCMDVersioninfo.json
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Debug\net8.0\TestingDir\AxpertPackages\main\axiPackages.json
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Debug\net8.0\TestingDir\AxpertPackages\main\Axi_Package_test-123\AxiCMDVersioninfo.json
 C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Debug\net8.0\AxiGitAPI.staticwebassets.endpoints.json
 C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Debug\net8.0\AxiGitAPI.exe
 C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Debug\net8.0\AxiGitAPI.deps.json
@@ -75,10 +62,10 @@ C:\Users\Dhanya.j\source\repos\AxiGitAPI\obj\Debug\net8.0\staticwebassets.build.
 C:\Users\Dhanya.j\source\repos\AxiGitAPI\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\Dhanya.j\source\repos\AxiGitAPI\obj\Debug\net8.0\staticwebassets.build.endpoints.json
 C:\Users\Dhanya.j\source\repos\AxiGitAPI\obj\Debug\net8.0\swae.build.ex.cache
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\Dhanya.j\source\repos\AxiGitAPI\obj\Debug\net8.0\AxiGitAPI.csproj.Up2Date
 C:\Users\Dhanya.j\source\repos\AxiGitAPI\obj\Debug\net8.0\AxiGitAPI.dll
 C:\Users\Dhanya.j\source\repos\AxiGitAPI\obj\Debug\net8.0\refint\AxiGitAPI.dll
 C:\Users\Dhanya.j\source\repos\AxiGitAPI\obj\Debug\net8.0\AxiGitAPI.pdb
 C:\Users\Dhanya.j\source\repos\AxiGitAPI\obj\Debug\net8.0\AxiGitAPI.genruntimeconfig.cache
 C:\Users\Dhanya.j\source\repos\AxiGitAPI\obj\Debug\net8.0\ref\AxiGitAPI.dll
+C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Debug\net8.0\dotnet-tools.json

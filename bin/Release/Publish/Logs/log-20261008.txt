@@ -1,0 +1,262 @@
+2026-10-08 10:14:26.451 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-10-08 10:14:26.486 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5151/api/git/push - application/json; charset=utf-8 305
+2026-10-08 10:14:26.514 +05:30 [INF] Hosting environment: Production
+2026-10-08 10:14:26.514 +05:30 [INF] Content root path: C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Release\Publish
+2026-10-08 10:14:26.543 +05:30 [WRN] Failed to determine the https port for redirect.
+2026-10-08 10:14:26.552 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 10:14:26.578 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-10-08 10:14:26.678 +05:30 [INF] Push request received for product: package19
+2026-10-08 10:14:26.728 +05:30 [INF] Push process started for product: package19
+2026-10-08 10:14:26.740 +05:30 [INF] Start processing HTTP request GET https://api.github.com/repos/dhanya-agile/axiproduct
+2026-10-08 10:14:26.743 +05:30 [INF] Sending HTTP request GET https://api.github.com/repos/dhanya-agile/axiproduct
+2026-10-08 10:14:27.490 +05:30 [INF] Received HTTP response headers after 744.4932ms - 200
+2026-10-08 10:14:27.493 +05:30 [INF] End processing HTTP request after 757.9991ms - 200
+2026-10-08 10:14:27.495 +05:30 [INF] GitHub repository already exists: axiproduct
+2026-10-08 10:14:34.389 +05:30 [INF] Commit created: da912769663a791cf356efd58a31ae07d2405435
+2026-10-08 10:14:36.447 +05:30 [INF] Product pushed successfully: package19
+2026-10-08 10:14:39.055 +05:30 [INF] axi-productrepository.json updated successfully for product package19, version 1
+2026-10-08 10:14:39.056 +05:30 [INF] Product details updated successfully for package19
+2026-10-08 10:14:39.061 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-10-08 10:14:39.100 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 12515.9441ms
+2026-10-08 10:14:39.100 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 10:14:39.106 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5151/api/git/push - 200 null application/json; charset=utf-8 12624.0514ms
+2026-10-08 10:35:23.984 +05:30 [INF] Application is shutting down...
+2026-10-08 11:13:46.514 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-10-08 11:13:46.563 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5151/api/git/push - application/json; charset=utf-8 331
+2026-10-08 11:13:46.601 +05:30 [INF] Hosting environment: Production
+2026-10-08 11:13:46.601 +05:30 [INF] Content root path: C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Release\Publish
+2026-10-08 11:13:46.636 +05:30 [WRN] Failed to determine the https port for redirect.
+2026-10-08 11:13:46.644 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 11:13:46.676 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-10-08 11:13:46.798 +05:30 [INF] Push request received for product: ProductDemo
+2026-10-08 11:13:46.860 +05:30 [INF] Push process started for product: ProductDemo
+2026-10-08 11:13:48.819 +05:30 [INF] Commit created: d4d86fbea52f2b8d8fd9b648dc302943bd9aea4a
+2026-10-08 11:13:51.106 +05:30 [INF] Product pushed successfully: ProductDemo
+2026-10-08 11:13:54.688 +05:30 [INF] axi-productrepository.json updated successfully for product ProductDemo, version 1
+2026-10-08 11:13:54.689 +05:30 [INF] Product details updated successfully for ProductDemo
+2026-10-08 11:13:54.697 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-10-08 11:13:54.735 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 8053.1896ms
+2026-10-08 11:13:54.738 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 11:13:54.746 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5151/api/git/push - 200 null application/json; charset=utf-8 8190.1759ms
+2026-10-08 11:24:46.769 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5151/api/git/push - application/json; charset=utf-8 330
+2026-10-08 11:24:46.772 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 11:24:46.773 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-10-08 11:24:46.777 +05:30 [INF] Push request received for product: Procure to Pay
+2026-10-08 11:24:46.777 +05:30 [INF] Push process started for product: Procure to Pay
+2026-10-08 11:24:48.113 +05:30 [INF] Commit created: 68bee8089d2d0fb0790b7433d0ce85e026348a8a
+2026-10-08 11:24:50.223 +05:30 [INF] Product pushed successfully: Procure to Pay
+2026-10-08 11:24:53.630 +05:30 [INF] axi-productrepository.json updated successfully for product Procure to Pay, version 1
+2026-10-08 11:24:53.631 +05:30 [INF] Product details updated successfully for Procure to Pay
+2026-10-08 11:24:53.632 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-10-08 11:24:53.634 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 6860.0724ms
+2026-10-08 11:24:53.634 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 11:24:53.635 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5151/api/git/push - 200 null application/json; charset=utf-8 6865.8252ms
+2026-10-08 11:45:43.410 +05:30 [INF] Application is shutting down...
+2026-10-08 12:58:37.508 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-10-08 12:58:37.555 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5151/api/git/push - application/json; charset=utf-8 334
+2026-10-08 12:58:37.587 +05:30 [INF] Hosting environment: Production
+2026-10-08 12:58:37.587 +05:30 [INF] Content root path: C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Release\Publish
+2026-10-08 12:58:37.619 +05:30 [WRN] Failed to determine the https port for redirect.
+2026-10-08 12:58:37.629 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 12:58:37.669 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-10-08 12:58:37.844 +05:30 [INF] Push request received for product: Procure to Pay
+2026-10-08 12:58:37.914 +05:30 [INF] Push process started for product: Procure to Pay
+2026-10-08 12:58:37.934 +05:30 [INF] Start processing HTTP request GET https://api.github.com/repos/dhanya-agile/AxiProduct
+2026-10-08 12:58:37.939 +05:30 [INF] Sending HTTP request GET https://api.github.com/repos/dhanya-agile/AxiProduct
+2026-10-08 12:58:38.855 +05:30 [INF] Received HTTP response headers after 911.7598ms - 200
+2026-10-08 12:58:38.864 +05:30 [INF] End processing HTTP request after 937.5933ms - 200
+2026-10-08 12:58:38.867 +05:30 [INF] GitHub repository already exists: AxiProduct
+2026-10-08 12:58:46.705 +05:30 [INF] Commit created: 86f410358a2628320e4e4786337784aeecd29fed
+2026-10-08 12:58:48.868 +05:30 [INF] Product pushed successfully: Procure to Pay
+2026-10-08 12:58:52.821 +05:30 [INF] axi-productrepository.json updated successfully for product Procure to Pay, version 1
+2026-10-08 12:58:52.823 +05:30 [INF] Product details updated successfully for Procure to Pay
+2026-10-08 12:58:52.828 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-10-08 12:58:52.880 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 15205.4558ms
+2026-10-08 12:58:52.880 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 12:58:52.886 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5151/api/git/push - 200 null application/json; charset=utf-8 15338.1094ms
+2026-10-08 13:19:34.582 +05:30 [INF] Application is shutting down...
+2026-10-08 13:42:52.059 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-10-08 13:42:52.161 +05:30 [INF] Hosting environment: Production
+2026-10-08 13:42:52.162 +05:30 [INF] Content root path: C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Release\Publish
+2026-10-08 13:42:52.228 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5151/api/git/push - application/json; charset=utf-8 337
+2026-10-08 13:42:52.263 +05:30 [WRN] Failed to determine the https port for redirect.
+2026-10-08 13:42:52.271 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 13:42:52.335 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-10-08 13:42:52.495 +05:30 [INF] Push request received for product: Procure to Pay
+2026-10-08 13:42:52.543 +05:30 [INF] Push process started for product: Procure to Pay
+2026-10-08 13:42:52.558 +05:30 [INF] Start processing HTTP request GET https://api.github.com/repos/dhanya-agile/AxiProduct
+2026-10-08 13:42:52.561 +05:30 [INF] Sending HTTP request GET https://api.github.com/repos/dhanya-agile/AxiProduct
+2026-10-08 13:42:53.759 +05:30 [INF] Received HTTP response headers after 1191.6706ms - 200
+2026-10-08 13:42:53.762 +05:30 [INF] End processing HTTP request after 1210.7933ms - 200
+2026-10-08 13:42:53.764 +05:30 [INF] GitHub repository already exists: AxiProduct
+2026-10-08 13:43:14.861 +05:30 [INF] Commit created: 6ec2d3c0296112a8fccae225d5622c7f34df9723
+2026-10-08 13:43:17.270 +05:30 [INF] Product pushed successfully: Procure to Pay
+2026-10-08 13:43:20.354 +05:30 [INF] axi-productrepository.json updated successfully for product Procure to Pay, version 1
+2026-10-08 13:43:20.355 +05:30 [INF] Product details updated successfully for Procure to Pay
+2026-10-08 13:43:20.361 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-10-08 13:43:20.409 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 28064.8047ms
+2026-10-08 13:43:20.410 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 13:43:20.415 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5151/api/git/push - 200 null application/json; charset=utf-8 28198.3962ms
+2026-10-08 13:43:34.694 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5151/api/git/push - application/json; charset=utf-8 337
+2026-10-08 13:43:34.696 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 13:43:34.696 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-10-08 13:43:34.698 +05:30 [INF] Push request received for product: Procure to Pay
+2026-10-08 13:43:34.698 +05:30 [INF] Push process started for product: Procure to Pay
+2026-10-08 13:43:35.629 +05:30 [ERR] Error occurred while pushing product
+System.Exception: Product version 'Version1' already exists for product 'Procure to Pay'.
+   at AxiGitAPI.Services.GitPushService.PushFolderToGitHub(String physicalPath, String targetRepo, String productName, String productDescription, String productVersion, String productAuthor, String gitBranch, String managerType, Boolean ensureRepository, Boolean compress) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 170
+2026-10-08 13:43:35.833 +05:30 [ERR] Error occurred while pushing product: Procure to Pay
+System.Exception: Product version 'Version1' already exists for product 'Procure to Pay'.
+   at AxiGitAPI.Services.GitPushService.PushFolderToGitHub(String physicalPath, String targetRepo, String productName, String productDescription, String productVersion, String productAuthor, String gitBranch, String managerType, Boolean ensureRepository, Boolean compress) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 170
+   at AxiGitAPI.Controllers.GitPushController.Push(PushFolderRequest request) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Controllers\GitPushController.cs:line 86
+2026-10-08 13:43:35.834 +05:30 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-10-08 13:43:35.840 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 1143.4613ms
+2026-10-08 13:43:35.840 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 13:43:35.841 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5151/api/git/push - 400 null application/json; charset=utf-8 1146.9894ms
+2026-10-08 13:44:34.003 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5151/api/git/push - application/json; charset=utf-8 337
+2026-10-08 13:44:34.004 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 13:44:34.004 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-10-08 13:44:34.005 +05:30 [INF] Push request received for product: Procure to Pay
+2026-10-08 13:44:34.005 +05:30 [INF] Push process started for product: Procure to Pay
+2026-10-08 13:44:34.751 +05:30 [ERR] Error occurred while pushing product
+System.Exception: Product version 'Version1' already exists for product 'Procure to Pay'.
+   at AxiGitAPI.Services.GitPushService.PushFolderToGitHub(String physicalPath, String targetRepo, String productName, String productDescription, String productVersion, String productAuthor, String gitBranch, String managerType, Boolean ensureRepository, Boolean compress) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 170
+2026-10-08 13:44:34.751 +05:30 [ERR] Error occurred while pushing product: Procure to Pay
+System.Exception: Product version 'Version1' already exists for product 'Procure to Pay'.
+   at AxiGitAPI.Services.GitPushService.PushFolderToGitHub(String physicalPath, String targetRepo, String productName, String productDescription, String productVersion, String productAuthor, String gitBranch, String managerType, Boolean ensureRepository, Boolean compress) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 170
+   at AxiGitAPI.Controllers.GitPushController.Push(PushFolderRequest request) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Controllers\GitPushController.cs:line 86
+2026-10-08 13:44:34.751 +05:30 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-10-08 13:44:34.752 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 747.5193ms
+2026-10-08 13:44:34.752 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 13:44:34.752 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5151/api/git/push - 400 null application/json; charset=utf-8 749.6354ms
+2026-10-08 13:45:31.624 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5151/api/git/push - application/json; charset=utf-8 337
+2026-10-08 13:45:31.625 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 13:45:31.625 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-10-08 13:45:31.626 +05:30 [INF] Push request received for product: Procure to Pay
+2026-10-08 13:45:31.626 +05:30 [INF] Push process started for product: Procure to Pay
+2026-10-08 13:45:32.537 +05:30 [ERR] Error occurred while pushing product
+System.Exception: Product version 'Version1' already exists for product 'Procure to Pay'.
+   at AxiGitAPI.Services.GitPushService.PushFolderToGitHub(String physicalPath, String targetRepo, String productName, String productDescription, String productVersion, String productAuthor, String gitBranch, String managerType, Boolean ensureRepository, Boolean compress) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 170
+2026-10-08 13:45:32.537 +05:30 [ERR] Error occurred while pushing product: Procure to Pay
+System.Exception: Product version 'Version1' already exists for product 'Procure to Pay'.
+   at AxiGitAPI.Services.GitPushService.PushFolderToGitHub(String physicalPath, String targetRepo, String productName, String productDescription, String productVersion, String productAuthor, String gitBranch, String managerType, Boolean ensureRepository, Boolean compress) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 170
+   at AxiGitAPI.Controllers.GitPushController.Push(PushFolderRequest request) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Controllers\GitPushController.cs:line 86
+2026-10-08 13:45:32.538 +05:30 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-10-08 13:45:32.538 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 913.343ms
+2026-10-08 13:45:32.538 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 13:45:32.539 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5151/api/git/push - 400 null application/json; charset=utf-8 914.469ms
+2026-10-08 13:46:24.203 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5151/api/git/push - application/json; charset=utf-8 337
+2026-10-08 13:46:24.203 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 13:46:24.203 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-10-08 13:46:24.203 +05:30 [INF] Push request received for product: Procure to Pay
+2026-10-08 13:46:24.203 +05:30 [INF] Push process started for product: Procure to Pay
+2026-10-08 13:46:25.025 +05:30 [ERR] Error occurred while pushing product
+System.Exception: Product version 'Version1' already exists for product 'Procure to Pay'.
+   at AxiGitAPI.Services.GitPushService.PushFolderToGitHub(String physicalPath, String targetRepo, String productName, String productDescription, String productVersion, String productAuthor, String gitBranch, String managerType, Boolean ensureRepository, Boolean compress) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 170
+2026-10-08 13:46:25.025 +05:30 [ERR] Error occurred while pushing product: Procure to Pay
+System.Exception: Product version 'Version1' already exists for product 'Procure to Pay'.
+   at AxiGitAPI.Services.GitPushService.PushFolderToGitHub(String physicalPath, String targetRepo, String productName, String productDescription, String productVersion, String productAuthor, String gitBranch, String managerType, Boolean ensureRepository, Boolean compress) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 170
+   at AxiGitAPI.Controllers.GitPushController.Push(PushFolderRequest request) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Controllers\GitPushController.cs:line 86
+2026-10-08 13:46:25.026 +05:30 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-10-08 13:46:25.027 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 823.5418ms
+2026-10-08 13:46:25.027 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 13:46:25.028 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5151/api/git/push - 400 null application/json; charset=utf-8 825.4465ms
+2026-10-08 13:50:36.359 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5151/api/git/push - application/json; charset=utf-8 333
+2026-10-08 13:50:36.360 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 13:50:36.360 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-10-08 13:50:36.360 +05:30 [INF] Push request received for product: Procure to Pay
+2026-10-08 13:50:36.360 +05:30 [INF] Push process started for product: Procure to Pay
+2026-10-08 13:50:37.097 +05:30 [ERR] Error occurred while pushing product
+System.Exception: Product version 'Version1' already exists for product 'Procure to Pay'.
+   at AxiGitAPI.Services.GitPushService.PushFolderToGitHub(String physicalPath, String targetRepo, String productName, String productDescription, String productVersion, String productAuthor, String gitBranch, String managerType, Boolean ensureRepository, Boolean compress) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 170
+2026-10-08 13:50:37.098 +05:30 [ERR] Error occurred while pushing product: Procure to Pay
+System.Exception: Product version 'Version1' already exists for product 'Procure to Pay'.
+   at AxiGitAPI.Services.GitPushService.PushFolderToGitHub(String physicalPath, String targetRepo, String productName, String productDescription, String productVersion, String productAuthor, String gitBranch, String managerType, Boolean ensureRepository, Boolean compress) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 170
+   at AxiGitAPI.Controllers.GitPushController.Push(PushFolderRequest request) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Controllers\GitPushController.cs:line 86
+2026-10-08 13:50:37.098 +05:30 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-10-08 13:50:37.099 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 738.6762ms
+2026-10-08 13:50:37.099 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 13:50:37.099 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5151/api/git/push - 400 null application/json; charset=utf-8 739.6926ms
+2026-10-08 13:54:08.626 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5151/api/git/push - application/json; charset=utf-8 334
+2026-10-08 13:54:08.627 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 13:54:08.627 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-10-08 13:54:08.628 +05:30 [INF] Push request received for product: Order to Cash
+2026-10-08 13:54:08.628 +05:30 [INF] Push process started for product: Order to Cash
+2026-10-08 13:54:10.209 +05:30 [INF] Commit created: 7de8af3f3daa792d231f129fda1a09797778ceb4
+2026-10-08 13:54:12.594 +05:30 [INF] Product pushed successfully: Order to Cash
+2026-10-08 13:54:15.540 +05:30 [INF] axi-productrepository.json updated successfully for product Order to Cash, version 1
+2026-10-08 13:54:15.540 +05:30 [INF] Product details updated successfully for Order to Cash
+2026-10-08 13:54:15.540 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-10-08 13:54:15.541 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 6914.2204ms
+2026-10-08 13:54:15.541 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 13:54:15.541 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5151/api/git/push - 200 null application/json; charset=utf-8 6915.183ms
+2026-10-08 14:13:31.499 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5151/api/git/push - application/json; charset=utf-8 334
+2026-10-08 14:13:31.499 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 14:13:31.500 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-10-08 14:13:31.500 +05:30 [INF] Push request received for product: Order to Cash
+2026-10-08 14:13:31.500 +05:30 [INF] Push process started for product: Order to Cash
+2026-10-08 14:13:32.219 +05:30 [ERR] Error occurred while pushing product
+System.Exception: Product version 'Version1' already exists for product 'Order to Cash'.
+   at AxiGitAPI.Services.GitPushService.PushFolderToGitHub(String physicalPath, String targetRepo, String productName, String productDescription, String productVersion, String productAuthor, String gitBranch, String managerType, Boolean ensureRepository, Boolean compress) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 170
+2026-10-08 14:13:32.219 +05:30 [ERR] Error occurred while pushing product: Order to Cash
+System.Exception: Product version 'Version1' already exists for product 'Order to Cash'.
+   at AxiGitAPI.Services.GitPushService.PushFolderToGitHub(String physicalPath, String targetRepo, String productName, String productDescription, String productVersion, String productAuthor, String gitBranch, String managerType, Boolean ensureRepository, Boolean compress) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 170
+   at AxiGitAPI.Controllers.GitPushController.Push(PushFolderRequest request) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Controllers\GitPushController.cs:line 86
+2026-10-08 14:13:32.219 +05:30 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-10-08 14:13:32.220 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 720.4186ms
+2026-10-08 14:13:32.220 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 14:13:32.220 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5151/api/git/push - 400 null application/json; charset=utf-8 721.3793ms
+2026-10-08 14:20:55.610 +05:30 [INF] Application is shutting down...
+2026-10-08 15:07:58.845 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-10-08 15:07:58.891 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5151/api/git/push - application/json; charset=utf-8 340
+2026-10-08 15:07:58.908 +05:30 [INF] Hosting environment: Production
+2026-10-08 15:07:58.909 +05:30 [INF] Content root path: C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Release\Publish
+2026-10-08 15:07:58.927 +05:30 [WRN] Failed to determine the https port for redirect.
+2026-10-08 15:07:58.933 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 15:07:58.958 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-10-08 15:07:59.055 +05:30 [INF] Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
+2026-10-08 15:07:59.131 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 167.287ms
+2026-10-08 15:07:59.134 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 15:07:59.138 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5151/api/git/push - 400 null application/problem+json; charset=utf-8 251.946ms
+2026-10-08 15:15:48.975 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5151/api/git/push - application/json; charset=utf-8 349
+2026-10-08 15:15:48.978 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 15:15:48.979 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-10-08 15:15:49.003 +05:30 [INF] Push request received for product: Order to Cash
+2026-10-08 15:15:49.058 +05:30 [INF] Push process started for product: Order to Cash
+2026-10-08 15:15:49.082 +05:30 [INF] Start processing HTTP request GET https://api.github.com/repos/dhanya-agile/AxiProduct
+2026-10-08 15:15:49.090 +05:30 [INF] Sending HTTP request GET https://api.github.com/repos/dhanya-agile/AxiProduct
+2026-10-08 15:15:49.996 +05:30 [INF] Received HTTP response headers after 900.3869ms - 200
+2026-10-08 15:15:49.999 +05:30 [INF] End processing HTTP request after 922.3545ms - 200
+2026-10-08 15:15:50.003 +05:30 [INF] GitHub repository already exists: AxiProduct
+2026-10-08 15:16:06.760 +05:30 [INF] Commit created: 6182bb51ca281aef869c05a2a975c0a740d907e9
+2026-10-08 15:16:08.955 +05:30 [INF] Product pushed successfully: Order to Cash
+2026-10-08 15:16:12.348 +05:30 [INF] axi-productrepository.json updated successfully for product Order to Cash, version 1
+2026-10-08 15:16:12.349 +05:30 [INF] Product details updated successfully for Order to Cash
+2026-10-08 15:16:12.350 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-10-08 15:16:12.375 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 23394.9956ms
+2026-10-08 15:16:12.375 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 15:16:12.375 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5151/api/git/push - 200 null application/json; charset=utf-8 23401.8411ms
+2026-10-08 15:35:54.725 +05:30 [INF] Application is shutting down...
+2026-10-08 17:44:49.770 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-10-08 17:44:49.816 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5151/api/git/push - application/json; charset=utf-8 321
+2026-10-08 17:44:49.833 +05:30 [INF] Hosting environment: Production
+2026-10-08 17:44:49.833 +05:30 [INF] Content root path: C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Release\Publish
+2026-10-08 17:44:49.854 +05:30 [WRN] Failed to determine the https port for redirect.
+2026-10-08 17:44:49.859 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 17:44:49.884 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-10-08 17:44:49.971 +05:30 [INF] Push request received for product: productnewtest
+2026-10-08 17:44:50.022 +05:30 [INF] Push process started for product: productnewtest
+2026-10-08 17:44:50.034 +05:30 [INF] Start processing HTTP request GET https://api.github.com/repos/dhanya-agile/AxpertPackages
+2026-10-08 17:44:50.037 +05:30 [INF] Sending HTTP request GET https://api.github.com/repos/dhanya-agile/AxpertPackages
+2026-10-08 17:44:51.129 +05:30 [INF] Received HTTP response headers after 1084.6947ms - 200
+2026-10-08 17:44:51.140 +05:30 [INF] End processing HTTP request after 1110.1915ms - 200
+2026-10-08 17:44:51.143 +05:30 [INF] GitHub repository already exists: AxpertPackages
+2026-10-08 17:45:08.278 +05:30 [INF] Commit created: 23604d1ac6d3af60106c3b3e3f97b4b3dd653f95
+2026-10-08 17:45:11.560 +05:30 [INF] Product pushed successfully: productnewtest
+2026-10-08 17:45:15.368 +05:30 [INF] axi-productrepository.json updated successfully for product productnewtest, version 1.0
+2026-10-08 17:45:15.369 +05:30 [INF] Product details updated successfully for productnewtest
+2026-10-08 17:45:15.373 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-10-08 17:45:15.415 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 25525.5001ms
+2026-10-08 17:45:15.416 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-10-08 17:45:15.422 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5151/api/git/push - 200 null application/json; charset=utf-8 25610.5132ms
+2026-10-08 18:05:45.813 +05:30 [INF] Application is shutting down...

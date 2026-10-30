@@ -1,0 +1,177 @@
+2026-09-22 16:58:06.783 +05:30 [INF] Now listening on: http://localhost:5035
+2026-09-22 16:58:07.166 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-09-22 16:58:07.167 +05:30 [INF] Hosting environment: Development
+2026-09-22 16:58:07.168 +05:30 [INF] Content root path: C:\Users\Dhanya.j\source\repos\AxiGitAPI
+2026-09-22 17:01:24.116 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5035/api/git/push - application/json 209
+2026-09-22 17:01:24.213 +05:30 [WRN] Failed to determine the https port for redirect.
+2026-09-22 17:01:24.218 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-09-22 17:01:24.301 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-09-22 17:01:24.396 +05:30 [INF] Push request received for product: ERP
+2026-09-22 17:01:24.430 +05:30 [INF] Push process started for product: ERP
+2026-09-22 17:01:29.768 +05:30 [ERR] Error occurred while pushing product
+LibGit2Sharp.LibGit2SharpException: too many redirects or authentication replays
+   at LibGit2Sharp.Core.Ensure.HandleError(Int32 result) in /_/LibGit2Sharp/Core/Ensure.cs:line 154
+   at LibGit2Sharp.Core.Ensure.ZeroResult(Int32 result) in /_/LibGit2Sharp/Core/Ensure.cs:line 172
+   at LibGit2Sharp.Core.Proxy.git_clone(String url, String workdir, GitCloneOptions& opts) in /_/LibGit2Sharp/Core/Proxy.cs:line 278
+   at LibGit2Sharp.Repository.Clone(String sourceUrl, String workdirPath, CloneOptions options) in /_/LibGit2Sharp/Repository.cs:line 823
+   at AxiGitAPI.Services.GitPushService.CloneRepository(String repoUrl, String repoPath, String username, String token) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 478
+   at AxiGitAPI.Services.GitPushService.PushFolderToGitHub(String physicalPath, String targetRepo, String productName, String productDescription, String productVersion, String productAuthor, String gitBranch) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 69
+2026-09-22 17:01:30.054 +05:30 [ERR] Error occurred while pushing product: ERP
+LibGit2Sharp.LibGit2SharpException: too many redirects or authentication replays
+   at LibGit2Sharp.Core.Ensure.HandleError(Int32 result) in /_/LibGit2Sharp/Core/Ensure.cs:line 154
+   at LibGit2Sharp.Core.Ensure.ZeroResult(Int32 result) in /_/LibGit2Sharp/Core/Ensure.cs:line 172
+   at LibGit2Sharp.Core.Proxy.git_clone(String url, String workdir, GitCloneOptions& opts) in /_/LibGit2Sharp/Core/Proxy.cs:line 278
+   at LibGit2Sharp.Repository.Clone(String sourceUrl, String workdirPath, CloneOptions options) in /_/LibGit2Sharp/Repository.cs:line 823
+   at AxiGitAPI.Services.GitPushService.CloneRepository(String repoUrl, String repoPath, String username, String token) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 478
+   at AxiGitAPI.Services.GitPushService.PushFolderToGitHub(String physicalPath, String targetRepo, String productName, String productDescription, String productVersion, String productAuthor, String gitBranch) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 69
+   at AxiGitAPI.Controllers.GitPushController.Push(PushFolderRequest request) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Controllers\GitPushController.cs:line 86
+2026-09-22 17:01:30.064 +05:30 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-09-22 17:01:30.085 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 5776.2914ms
+2026-09-22 17:01:30.086 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-09-22 17:01:30.100 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5035/api/git/push - 400 null application/json; charset=utf-8 6006.6512ms
+2026-09-22 17:23:25.789 +05:30 [INF] Now listening on: http://localhost:5035
+2026-09-22 17:23:26.110 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-09-22 17:23:26.111 +05:30 [INF] Hosting environment: Development
+2026-09-22 17:23:26.111 +05:30 [INF] Content root path: C:\Users\Dhanya.j\source\repos\AxiGitAPI
+2026-09-22 17:23:48.472 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5035/api/git/push - application/json 209
+2026-09-22 17:23:48.559 +05:30 [WRN] Failed to determine the https port for redirect.
+2026-09-22 17:23:48.566 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-09-22 17:23:48.642 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-09-22 17:23:48.734 +05:30 [INF] Push request received for product: ERP
+2026-09-22 17:23:48.759 +05:30 [INF] Push process started for product: ERP
+2026-09-22 17:23:49.545 +05:30 [INF] Empty repository detected. Creating initial commit.
+2026-09-22 17:23:51.744 +05:30 [INF] Initial commit pushed successfully.
+2026-09-22 17:23:52.945 +05:30 [INF] Commit created: fa1a63fcc88eeef1452dc86c1a3bcb1bc7f0cc46
+2026-09-22 17:23:54.840 +05:30 [INF] Product pushed successfully: ERP
+2026-09-22 17:23:57.983 +05:30 [INF] axiPackages.json updated successfully for product ERP, version 1
+2026-09-22 17:23:57.984 +05:30 [INF] Product details updated successfully in axiPackages.json for ERP
+2026-09-22 17:23:57.998 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-09-22 17:23:58.027 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 9375.1486ms
+2026-09-22 17:23:58.028 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-09-22 17:23:58.036 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5035/api/git/push - 200 null application/json; charset=utf-8 9581.1815ms
+2026-09-22 17:26:38.518 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5035/api/git/push - application/json 210
+2026-09-22 17:26:38.521 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-09-22 17:26:38.521 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-09-22 17:26:38.529 +05:30 [INF] Push request received for product: ERP
+2026-09-22 17:26:38.529 +05:30 [INF] Push process started for product: ERP
+2026-09-22 17:26:39.615 +05:30 [INF] Commit created: 7784fc68b40ab8b23b8061064b56d4bba37c7e76
+2026-09-22 17:26:41.965 +05:30 [INF] Product pushed successfully: ERP
+2026-09-22 17:26:44.745 +05:30 [INF] axiPackages.json updated successfully for product ERP, version 2
+2026-09-22 17:26:44.745 +05:30 [INF] Product details updated successfully in axiPackages.json for ERP
+2026-09-22 17:26:44.746 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-09-22 17:26:44.749 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 6226.5943ms
+2026-09-22 17:26:44.749 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-09-22 17:26:44.749 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5035/api/git/push - 200 null application/json; charset=utf-8 6232.6774ms
+2026-09-22 17:39:35.832 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5035/api/git/push - application/json 210
+2026-09-22 17:39:35.839 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-09-22 17:39:35.840 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-09-22 17:39:35.841 +05:30 [INF] Push request received for product: CRM
+2026-09-22 17:39:35.841 +05:30 [INF] Push process started for product: CRM
+2026-09-22 17:39:36.869 +05:30 [INF] Commit created: bf4492641e93bba1b0394a69e0c94e9d1245fb9e
+2026-09-22 17:39:38.930 +05:30 [INF] Product pushed successfully: CRM
+2026-09-22 17:39:41.383 +05:30 [INF] axiPackages.json updated successfully for product CRM, version 1
+2026-09-22 17:39:41.384 +05:30 [INF] Product details updated successfully in axiPackages.json for CRM
+2026-09-22 17:39:41.384 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-09-22 17:39:41.384 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 5544.4179ms
+2026-09-22 17:39:41.384 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-09-22 17:39:41.384 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5035/api/git/push - 200 null application/json; charset=utf-8 5553.2813ms
+2026-09-22 17:50:55.527 +05:30 [INF] Now listening on: http://localhost:5035
+2026-09-22 17:50:55.794 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-09-22 17:50:55.795 +05:30 [INF] Hosting environment: Development
+2026-09-22 17:50:55.795 +05:30 [INF] Content root path: C:\Users\Dhanya.j\source\repos\AxiGitAPI
+2026-09-22 17:51:14.686 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5035/api/git/push - application/json 213
+2026-09-22 17:51:14.777 +05:30 [WRN] Failed to determine the https port for redirect.
+2026-09-22 17:51:14.781 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-09-22 17:51:14.839 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-09-22 17:51:14.919 +05:30 [INF] Push request received for product: ERP
+2026-09-22 17:51:14.949 +05:30 [INF] Push process started for product: ERP
+2026-09-22 17:51:15.944 +05:30 [INF] Empty repository detected. Creating initial commit.
+2026-09-22 17:51:16.908 +05:30 [ERR] Error occurred while pushing product
+System.Exception: Main branch not found.
+   at AxiGitAPI.Services.GitPushService.CheckoutOrCreateBranch(Repository repo, String branchName) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 521
+   at AxiGitAPI.Services.GitPushService.PushFolderToGitHub(String physicalPath, String targetRepo, String productName, String productDescription, String productVersion, String productAuthor, String gitBranch) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 87
+2026-09-22 17:51:17.067 +05:30 [ERR] Error occurred while pushing product: ERP
+System.Exception: Main branch not found.
+   at AxiGitAPI.Services.GitPushService.CheckoutOrCreateBranch(Repository repo, String branchName) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 521
+   at AxiGitAPI.Services.GitPushService.PushFolderToGitHub(String physicalPath, String targetRepo, String productName, String productDescription, String productVersion, String productAuthor, String gitBranch) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Services\GitPushService.cs:line 87
+   at AxiGitAPI.Controllers.GitPushController.Push(PushFolderRequest request) in C:\Users\Dhanya.j\source\repos\AxiGitAPI\Controllers\GitPushController.cs:line 86
+2026-09-22 17:51:17.076 +05:30 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-09-22 17:51:17.093 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 2248.8478ms
+2026-09-22 17:51:17.094 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-09-22 17:51:17.098 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5035/api/git/push - 400 null application/json; charset=utf-8 2430.844ms
+2026-09-22 17:58:36.503 +05:30 [INF] Now listening on: http://localhost:5035
+2026-09-22 17:58:37.057 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-09-22 17:58:37.058 +05:30 [INF] Hosting environment: Development
+2026-09-22 17:58:37.059 +05:30 [INF] Content root path: C:\Users\Dhanya.j\source\repos\AxiGitAPI
+2026-09-22 17:58:56.398 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5035/api/git/push - application/json 213
+2026-09-22 17:58:56.459 +05:30 [WRN] Failed to determine the https port for redirect.
+2026-09-22 17:58:56.463 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-09-22 17:58:56.518 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-09-22 17:58:56.598 +05:30 [INF] Push request received for product: ERP
+2026-09-22 17:58:56.617 +05:30 [INF] Push process started for product: ERP
+2026-09-22 17:58:56.687 +05:30 [INF] Repository is empty. Preparing first commit on branch: main
+2026-09-22 17:58:57.263 +05:30 [INF] Commit created: 3f51f0e181b5b9d34157433e9b76c82f4a327fe8
+2026-09-22 17:58:59.498 +05:30 [INF] Product pushed successfully: ERP
+2026-09-22 17:59:02.340 +05:30 [INF] axiProduct.json updated successfully for product ERP, version 1
+2026-09-22 17:59:02.340 +05:30 [INF] Product details updated successfully in axiPackages.json for ERP
+2026-09-22 17:59:02.354 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-09-22 17:59:02.369 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 5844.963ms
+2026-09-22 17:59:02.370 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-09-22 17:59:02.372 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5035/api/git/push - 200 null application/json; charset=utf-8 6001.4035ms
+2026-09-22 18:00:53.951 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5035/api/git/push - application/json 220
+2026-09-22 18:00:53.954 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-09-22 18:00:53.954 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-09-22 18:00:53.959 +05:30 [INF] Push request received for product: ERP
+2026-09-22 18:00:53.959 +05:30 [INF] Push process started for product: ERP
+2026-09-22 18:00:55.465 +05:30 [INF] Commit created: bbd629e4f5a4a005dff7443547475f84e34ae321
+2026-09-22 18:00:57.582 +05:30 [INF] Product pushed successfully: ERP
+2026-09-22 18:01:00.303 +05:30 [INF] axiProduct.json updated successfully for product ERP, version Version2
+2026-09-22 18:01:00.304 +05:30 [INF] Product details updated successfully in axiPackages.json for ERP
+2026-09-22 18:01:00.306 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-09-22 18:01:00.307 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 6352.7459ms
+2026-09-22 18:01:00.308 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-09-22 18:01:00.308 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5035/api/git/push - 200 null application/json; charset=utf-8 6367.3697ms
+2026-09-22 18:08:13.997 +05:30 [INF] Now listening on: http://localhost:5035
+2026-09-22 18:08:14.324 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-09-22 18:08:14.326 +05:30 [INF] Hosting environment: Development
+2026-09-22 18:08:14.326 +05:30 [INF] Content root path: C:\Users\Dhanya.j\source\repos\AxiGitAPI
+2026-09-22 18:08:45.814 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5035/api/git/push - application/json 220
+2026-09-22 18:08:45.882 +05:30 [WRN] Failed to determine the https port for redirect.
+2026-09-22 18:08:45.889 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-09-22 18:08:45.945 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-09-22 18:08:46.051 +05:30 [INF] Push request received for product: ERP
+2026-09-22 18:08:46.065 +05:30 [INF] Push process started for product: ERP
+2026-09-22 18:08:47.779 +05:30 [INF] Commit created: ff6be3bb7db58a02bae0bea969315b1c15f36099
+2026-09-22 18:08:49.940 +05:30 [INF] Product pushed successfully: ERP
+2026-09-22 18:08:52.418 +05:30 [INF] axiProduct.json updated successfully for product ERP, version Version3
+2026-09-22 18:08:52.419 +05:30 [INF] Product details updated successfully in axiPackages.json for ERP
+2026-09-22 18:08:52.436 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-09-22 18:08:52.456 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 6503.7348ms
+2026-09-22 18:08:52.457 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-09-22 18:08:52.460 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5035/api/git/push - 200 null application/json; charset=utf-8 6668.9647ms
+2026-09-22 18:09:51.838 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5035/api/git/push - application/json 220
+2026-09-22 18:09:51.840 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-09-22 18:09:51.840 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-09-22 18:09:51.843 +05:30 [INF] Push request received for product: ERP
+2026-09-22 18:09:51.845 +05:30 [INF] Push process started for product: ERP
+2026-09-22 18:09:52.733 +05:30 [INF] Commit created: 10b72b337c54a9700681a3ac408b7920d9a672b0
+2026-09-22 18:09:54.641 +05:30 [INF] Product pushed successfully: ERP
+2026-09-22 18:09:57.243 +05:30 [INF] axiProduct.json updated successfully for product ERP, version Version4
+2026-09-22 18:09:57.243 +05:30 [INF] Product details updated successfully in axiPackages.json for ERP
+2026-09-22 18:09:57.246 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-09-22 18:09:57.247 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 5406.9202ms
+2026-09-22 18:09:57.247 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-09-22 18:09:57.248 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5035/api/git/push - 200 null application/json; charset=utf-8 5410.6382ms
+2026-09-22 18:12:33.108 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5035/api/git/push - application/json 213
+2026-09-22 18:12:33.144 +05:30 [INF] Executing endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-09-22 18:12:33.145 +05:30 [INF] Route matched with {action = "Push", controller = "GitPush"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Push(AxiGitAPI.Models.PushFolderRequest) on controller AxiGitAPI.Controllers.GitPushController (AxiGitAPI).
+2026-09-22 18:12:33.147 +05:30 [INF] Push request received for product: ERP
+2026-09-22 18:12:33.147 +05:30 [INF] Push process started for product: ERP
+2026-09-22 18:12:34.307 +05:30 [INF] Commit created: 8c302422b88764f646c72a44908ef29fdc845eea
+2026-09-22 18:12:36.602 +05:30 [INF] Product pushed successfully: ERP
+2026-09-22 18:12:39.709 +05:30 [INF] axiProduct.json updated successfully for product ERP, version 5
+2026-09-22 18:12:39.709 +05:30 [INF] Product details updated successfully in axiPackages.json for ERP
+2026-09-22 18:12:39.709 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-09-22 18:12:39.710 +05:30 [INF] Executed action AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI) in 6564.5496ms
+2026-09-22 18:12:39.710 +05:30 [INF] Executed endpoint 'AxiGitAPI.Controllers.GitPushController.Push (AxiGitAPI)'
+2026-09-22 18:12:39.710 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5035/api/git/push - 200 null application/json; charset=utf-8 6602.3877ms

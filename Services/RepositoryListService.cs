@@ -43,6 +43,9 @@ namespace AxiGitAPI.Services
             string markerFileName =
                 $"axi-{managerType}repository.json";
 
+            string normalizedMarkerFileName =
+                $"axi-{managerType.ToLowerInvariant()}repository.json";
+
             _logger.LogInformation(
                 "Starting repository search for account '{Account}' and manager type '{ManagerType}'.",
                 account,
@@ -135,6 +138,7 @@ namespace AxiGitAPI.Services
                             account,
                             repositoryName,
                             markerFileName,
+                            normalizedMarkerFileName,
                             managerType,
                             repository.DefaultBranch);
 
@@ -260,81 +264,185 @@ namespace AxiGitAPI.Services
         }
 
         private async Task<bool> IsMatchingRepository(
-            HttpClient client,
-            string account,
-            string repositoryName,
-            string markerFileName,
-            string requestedManagerType,
-            string defaultBranch)
+    HttpClient client,
+    string account,
+    string repositoryName,
+    string markerFileName,
+    string normalizedMarkerFileName,
+    string requestedManagerType,
+    string defaultBranch)
         {
+            // -------------------------------------------------------------
+            // First get the contents of the repository root.
+            //
+            // We do this because GitHub file paths are case-sensitive.
+            // Instead of directly requesting:
+            //
+            //     axi-productrepository.json
+            //
+            // we inspect the actual filenames returned by GitHub and
+            // perform our own case-insensitive comparison.
+            // -------------------------------------------------------------
+
             string encodedAccount =
                 Uri.EscapeDataString(account);
 
             string encodedRepositoryName =
                 Uri.EscapeDataString(repositoryName);
 
-            string encodedFileName =
-                Uri.EscapeDataString(markerFileName);
-
-            string url =
+            string contentsUrl =
                 $"{GitHubApiUrl}/repos/" +
                 $"{encodedAccount}/" +
                 $"{encodedRepositoryName}/" +
-                $"contents/{encodedFileName}";
+                $"contents";
 
-            // We intentionally do not pass ref here.
-            // GitHub will use the repository's default branch.
             if (!string.IsNullOrWhiteSpace(defaultBranch))
             {
-                url +=
+                contentsUrl +=
                     $"?ref={Uri.EscapeDataString(defaultBranch)}";
             }
 
-            HttpResponseMessage response =
-                await client.GetAsync(url);
+            HttpResponseMessage contentsResponse =
+                await client.GetAsync(contentsUrl);
 
-            // Marker file does not exist in this repository.
-            if (response.StatusCode == HttpStatusCode.NotFound)
+            if (contentsResponse.StatusCode == HttpStatusCode.NotFound)
             {
                 return false;
             }
 
-            if (!response.IsSuccessStatusCode)
+            if (!contentsResponse.IsSuccessStatusCode)
             {
                 string error =
-                    await response.Content.ReadAsStringAsync();
+                    await contentsResponse.Content.ReadAsStringAsync();
 
                 throw new Exception(
-                    $"Unable to read marker file from repository " +
+                    $"Unable to read repository contents from " +
                     $"'{repositoryName}'. " +
-                    $"Status: {(int)response.StatusCode}. " +
+                    $"Status: {(int)contentsResponse.StatusCode}. " +
                     $"Response: {error}");
             }
 
-            GitHubFileResponse fileResponse =
-                await DeserializeResponse<GitHubFileResponse>(
-                    response);
+            List<GitHubFileResponse> files =
+                await DeserializeResponse<List<GitHubFileResponse>>(
+                    contentsResponse);
 
-            if (fileResponse == null)
+            if (files == null || files.Count == 0)
+            {
                 return false;
+            }
 
+            // -------------------------------------------------------------
+            // Find the marker file using case-insensitive filename matching.
+            //
+            // For example, all of these will match:
+            //
+            // axi-productrepository.json
+            // axi-Productrepository.json
+            // AXI-PRODUCTREPOSITORY.JSON
+            // -------------------------------------------------------------
+
+            string expectedMarkerFileName =
+                normalizedMarkerFileName;
+
+            GitHubFileResponse markerFile =
+                files.FirstOrDefault(
+                    file =>
+                        string.Equals(
+                            file.Name,
+                            expectedMarkerFileName,
+                            StringComparison.OrdinalIgnoreCase));
+
+            if (markerFile == null ||
+                string.IsNullOrWhiteSpace(markerFile.Name))
+            {
+                return false;
+            }
+
+            // Make sure we found a file and not a directory.
             if (!string.Equals(
-                    fileResponse.Type,
+                    markerFile.Type,
                     "file",
                     StringComparison.OrdinalIgnoreCase))
             {
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(fileResponse.Content))
-                return false;
+            _logger.LogInformation(
+                "Found marker file '{MarkerFileName}' in repository '{RepositoryName}'.",
+                markerFile.Name,
+                repositoryName);
 
-            // GitHub Contents API returns file content as Base64.
+            // -------------------------------------------------------------
+            // Now request the actual filename returned by GitHub.
+            //
+            // This is important.
+            //
+            // If GitHub returned:
+            //
+            //     axi-Productrepository.json
+            //
+            // we must request that exact path instead of changing it to:
+            //
+            //     axi-productrepository.json
+            // -------------------------------------------------------------
+
+            string encodedFileName =
+                Uri.EscapeDataString(markerFile.Name);
+
+            string fileUrl =
+                $"{GitHubApiUrl}/repos/" +
+                $"{encodedAccount}/" +
+                $"{encodedRepositoryName}/" +
+                $"contents/{encodedFileName}";
+
+            if (!string.IsNullOrWhiteSpace(defaultBranch))
+            {
+                fileUrl +=
+                    $"?ref={Uri.EscapeDataString(defaultBranch)}";
+            }
+
+            HttpResponseMessage fileResponse =
+                await client.GetAsync(fileUrl);
+
+            if (fileResponse.StatusCode == HttpStatusCode.NotFound)
+            {
+                return false;
+            }
+
+            if (!fileResponse.IsSuccessStatusCode)
+            {
+                string error =
+                    await fileResponse.Content.ReadAsStringAsync();
+
+                throw new Exception(
+                    $"Unable to read marker file '{markerFile.Name}' " +
+                    $"from repository '{repositoryName}'. " +
+                    $"Status: {(int)fileResponse.StatusCode}. " +
+                    $"Response: {error}");
+            }
+
+            GitHubFileResponse fileContent =
+                await DeserializeResponse<GitHubFileResponse>(
+                    fileResponse);
+
+            if (fileContent == null ||
+                string.IsNullOrWhiteSpace(fileContent.Content))
+            {
+                return false;
+            }
+
+            // -------------------------------------------------------------
+            // Decode JSON content.
+            // -------------------------------------------------------------
+
             string jsonContent =
-                DecodeBase64Content(fileResponse.Content);
+                DecodeBase64Content(
+                    fileContent.Content);
 
             if (string.IsNullOrWhiteSpace(jsonContent))
+            {
                 return false;
+            }
 
             RepositoryMarker marker;
 
@@ -351,7 +459,7 @@ namespace AxiGitAPI.Services
             catch (JsonException ex)
             {
                 throw new Exception(
-                    $"Invalid JSON in '{markerFileName}' " +
+                    $"Invalid JSON in '{markerFile.Name}' " +
                     $"for repository '{repositoryName}'.",
                     ex);
             }
@@ -362,7 +470,12 @@ namespace AxiGitAPI.Services
                 return false;
             }
 
-            // Manager type comparison is NOT case-sensitive.
+            // -------------------------------------------------------------
+            // ManagerType comparison is case-insensitive.
+            //
+            // "Product" == "product"
+            // -------------------------------------------------------------
+
             return string.Equals(
                 marker.ManagerType.Trim(),
                 requestedManagerType.Trim(),
@@ -417,6 +530,8 @@ namespace AxiGitAPI.Services
 
         private class GitHubFileResponse
         {
+            public string Name { get; set; }
+
             public string Type { get; set; }
 
             public string Encoding { get; set; }

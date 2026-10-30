@@ -68,17 +68,5 @@ C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Release\net8.0\System.IO.Pipelines.
 C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Release\net8.0\System.Text.Encodings.Web.dll
 C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Release\net8.0\System.Text.Json.dll
 C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Release\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Release\net8.0\GIT_Directory\AxpertPackages\axiPackages.json
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Release\net8.0\GIT_Directory\AxpertPackages\ERP 0099\ERP 0099_1.0.0.json
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Release\net8.0\GIT_Directory\AxpertPackages\sales29_package\sales29_package.json
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Release\net8.0\GIT_Directory\AxpertPackages\sales37_package\sales26_package.json
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Release\net8.0\GIT_Directory\AxpertPackages\sales37_package\sales37_package.json
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Release\net8.0\GIT_Directory\AxpertPackages\sales38_package\sales26_package.json
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Release\net8.0\GIT_Directory\AxpertPackages\sales38_package\sales37_package.json
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Release\net8.0\GIT_Directory\AxpertPackages\sales38_package\sales37_package_1.0.0.json
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Release\net8.0\GIT_Directory\AxpertPackages\sales38_package\sales38_package_1.0.0.json
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Release\net8.0\TestingDir\AxpertPackages\aximain\axiPackages.json
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Release\net8.0\TestingDir\AxpertPackages\aximain\Axi_Package_test-123\AxiCMDVersioninfo.json
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Release\net8.0\TestingDir\AxpertPackages\main\axiPackages.json
-C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Release\net8.0\TestingDir\AxpertPackages\main\Axi_Package_test-123\AxiCMDVersioninfo.json
 C:\Users\Dhanya.j\source\repos\AxiGitAPI\obj\Release\net8.0\swae.build.ex.cache
+C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Release\net8.0\dotnet-tools.json
