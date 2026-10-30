@@ -88,21 +88,28 @@ namespace AxiGitAPI.Services
                     repo,
                     cancellationToken);
 
-            using HttpResponseMessage treeResponse =
-                await GetFromGitHub(
-                    client,
-                    $"{repoPath}/git/trees/{commit.Commit.Tree.Sha}?recursive=1",
-                    cancellationToken);
+            string rootTreeSha = commit.Commit.Tree.Sha;
 
             GitHubTree tree =
-                await ReadJsonOrThrow<GitHubTree>(
-                    treeResponse,
+                await GetTree(
+                    client,
+                    repoPath,
+                    rootTreeSha,
+                    recursive: true,
                     account,
                     repo,
                     cancellationToken);
 
+            // GitHub caps recursive trees; for a large Repository it returns a partial
+            // tree flagged "truncated". Directories only need two levels, so read those
+            // level by level instead.
+            List<GitHubTreeEntry> entries =
+                tree.Truncated
+                    ? await GetTopTwoLevels(client, repoPath, rootTreeSha, account, repo, cancellationToken)
+                    : tree.Tree;
+
             List<DirectoryEntry> directories =
-                BuildDirectories(tree.Tree);
+                BuildDirectories(entries);
 
             _logger.LogInformation(
                 "Found {DirectoryCount} directories in Repository '{Account}/{Repository}' at {CommitSha}.",
@@ -172,6 +179,96 @@ namespace AxiGitAPI.Services
                 .Where(directory => directory.Versions.Count > 0)
                 .OrderBy(directory => directory.Name, StringComparer.OrdinalIgnoreCase)
                 .ToList();
+        }
+
+        // Lists every top-level folder and its immediate children, with paths
+        // shaped like a recursive tree's ("Folder/Child").
+        private async Task<List<GitHubTreeEntry>> GetTopTwoLevels(
+            HttpClient client,
+            string repoPath,
+            string rootTreeSha,
+            string account,
+            string repo,
+            CancellationToken cancellationToken)
+        {
+            _logger.LogWarning(
+                "Tree for Repository '{Account}/{Repository}' was truncated by GitHub; " +
+                "reading top-level folders one by one.",
+                account,
+                repo);
+
+            GitHubTree root =
+                await GetCompleteTree(client, repoPath, rootTreeSha, account, repo, cancellationToken);
+
+            List<GitHubTreeEntry> entries = new List<GitHubTreeEntry>();
+
+            foreach (GitHubTreeEntry folder in root.Tree.Where(e => e.Type == "tree"))
+            {
+                entries.Add(folder);
+
+                GitHubTree children =
+                    await GetCompleteTree(client, repoPath, folder.Sha, account, repo, cancellationToken);
+
+                entries.AddRange(
+                    children.Tree.Select(child => new GitHubTreeEntry
+                    {
+                        Path = $"{folder.Path}/{child.Path}",
+                        Type = child.Type,
+                        Sha = child.Sha
+                    }));
+            }
+
+            return entries;
+        }
+
+        // A non-recursive tree that GitHub still truncates cannot be listed completely;
+        // fail (502) rather than return a Directory list with Versions silently missing.
+        private async Task<GitHubTree> GetCompleteTree(
+            HttpClient client,
+            string repoPath,
+            string treeSha,
+            string account,
+            string repo,
+            CancellationToken cancellationToken)
+        {
+            GitHubTree tree =
+                await GetTree(client, repoPath, treeSha, recursive: false, account, repo, cancellationToken);
+
+            if (tree.Truncated)
+            {
+                _logger.LogWarning(
+                    "Tree {TreeSha} in Repository '{Account}/{Repository}' is too large for GitHub to list.",
+                    treeSha,
+                    account,
+                    repo);
+
+                throw GitHubApiException.IncompleteListing();
+            }
+
+            return tree;
+        }
+
+        private async Task<GitHubTree> GetTree(
+            HttpClient client,
+            string repoPath,
+            string treeSha,
+            bool recursive,
+            string account,
+            string repo,
+            CancellationToken cancellationToken)
+        {
+            string url =
+                $"{repoPath}/git/trees/{Uri.EscapeDataString(treeSha)}" +
+                (recursive ? "?recursive=1" : string.Empty);
+
+            using HttpResponseMessage response =
+                await GetFromGitHub(client, url, cancellationToken);
+
+            return await ReadJsonOrThrow<GitHubTree>(
+                response,
+                account,
+                repo,
+                cancellationToken);
         }
 
         // A GitHub that cannot be reached (connection failure, timeout) is a GitHubApiException (502).
@@ -273,6 +370,8 @@ namespace AxiGitAPI.Services
             public string Path { get; set; } = string.Empty;
 
             public string Type { get; set; } = string.Empty;
+
+            public string Sha { get; set; } = string.Empty;
         }
     }
 }

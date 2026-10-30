@@ -440,6 +440,81 @@ namespace AxiGitAPI.Tests
             Assert.Empty(body.GetProperty("directories").EnumerateArray());
         }
 
+        private static readonly string[] LargeRepositoryPaths =
+        {
+            "zeta/",
+            "zeta/Version1/",
+            ".github/",
+            ".github/workflows/",
+            "readme.md",
+            "Customer/",
+            "Customer/latest/",
+            "Customer/latest/version.info",
+            "Customer/Version10/",
+            "Customer/Version2/",
+            "Customer/Version2/Customer_version2.zip",
+            "Customer/notes/",
+            "billing/",
+            "billing/Latest/",
+            "docs/",
+            "docs/images/"
+        };
+
+        [Fact]
+        public async Task Returns_every_Directory_when_GitHub_truncates_the_recursive_tree()
+        {
+            _factory.GitHub.TruncatedRepository("acme", "axi-products", "c0ffee1", LargeRepositoryPaths);
+
+            var (status, body) = await ListDirectories();
+
+            Assert.Equal(HttpStatusCode.OK, status);
+            Assert.Equal("c0ffee1", body.GetProperty("commitSha").GetString());
+            Assert.Equal(3, body.GetProperty("directoryCount").GetInt32());
+            Assert.Equal(new[] { "billing", "Customer", "zeta" }, Names(body));
+            Assert.Equal(new[] { "Latest" }, VersionsOf(body, "billing"));
+            Assert.Equal(new[] { "latest", "Version2", "Version10" }, VersionsOf(body, "Customer"));
+            Assert.Equal(new[] { "Version1" }, VersionsOf(body, "zeta"));
+        }
+
+        [Fact]
+        public async Task Returns_502_rather_than_a_partial_list_when_a_folder_listing_is_also_truncated()
+        {
+            _factory.GitHub.TruncatedRepository("acme", "axi-products", "c0ffee1", LargeRepositoryPaths);
+            _factory.GitHub.Respond(
+                "/repos/acme/axi-products/git/trees/sha-Customer",
+                HttpStatusCode.OK,
+                new
+                {
+                    sha = "sha-Customer",
+                    truncated = true,
+                    tree = new[] { new { path = "latest", type = "tree", sha = "sha-Customer/latest" } }
+                });
+
+            var (status, problem, raw, contentType) = await ListDirectoriesRaw();
+
+            Assert.Equal(HttpStatusCode.BadGateway, status);
+            Assert.Equal("application/problem+json", contentType);
+            Assert.Equal(502, problem.GetProperty("status").GetInt32());
+            Assert.DoesNotContain(AxiGitApiFactory.TestPat, raw);
+        }
+
+        [Fact]
+        public async Task Makes_no_fallback_calls_when_the_tree_is_not_truncated()
+        {
+            _factory.GitHub.Repository("acme", "axi-products", "c0ffee1", LargeRepositoryPaths);
+
+            var (status, _) = await ListDirectories();
+
+            Assert.Equal(HttpStatusCode.OK, status);
+            Assert.Equal(
+                new[]
+                {
+                    "/repos/acme/axi-products/commits/main",
+                    "/repos/acme/axi-products/git/trees/tree-c0ffee1?recursive=1"
+                },
+                _factory.GitHub.Requests.Select(r => r.RequestUri!.PathAndQuery).ToArray());
+        }
+
         [Fact]
         public async Task Keeps_CORS_headers_on_a_500_so_browser_clients_can_read_the_problem()
         {

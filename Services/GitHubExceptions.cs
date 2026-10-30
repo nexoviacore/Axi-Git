@@ -26,5 +26,14 @@ namespace AxiGitAPI.Services
             : base($"GitHub returned an unexpected response (HTTP {gitHubStatusCode}).")
         {
         }
+
+        private GitHubApiException(string clientSafeMessage)
+            : base(clientSafeMessage)
+        {
+        }
+
+        // GitHub truncated a listing even when read folder by folder.
+        public static GitHubApiException IncompleteListing() =>
+            new GitHubApiException("GitHub returned an incomplete listing for this Repository.");
     }
 }
