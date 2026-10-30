@@ -2,6 +2,7 @@ using System.Net.Http.Headers;
 using AxiGitAPI.Infrastructure;
 using AxiGitAPI.Options;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 using AxiGitAPI.Services;
 using Serilog;
 
@@ -67,9 +68,39 @@ builder.Services.AddProblemDetails();
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
+// Swagger / OpenAPI, described from the controllers and their XML doc comments.
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "AxiGIT API",
+        Version = "v1",
+        Description = "Publishes and retrieves Axi deliverables stored in GitHub Repositories for AxiCmdLine."
+    });
+
+    string xmlDocPath =
+        Path.Combine(AppContext.BaseDirectory, $"{typeof(Program).Assembly.GetName().Name}.xml");
+
+    if (File.Exists(xmlDocPath))
+        options.IncludeXmlComments(xmlDocPath);
+});
+
 var app = builder.Build();
 
 app.UseExceptionHandler();
+
+// Only in Development: the API description is not exposed by published builds.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "AxiGIT API v1");
+    });
+}
 
 app.UseCors("AllowAll");
 
