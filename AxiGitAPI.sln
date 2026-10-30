@@ -5,6 +5,10 @@ VisualStudioVersion = 17.14.37012.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AxiGitAPI", "AxiGitAPI.csproj", "{A0A5A39F-F0CC-4190-B7C8-B9261D58E1B8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9FB6920A-8253-453B-9B28-D2746E0D9690}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AxiGitAPI.Tests", "tests\AxiGitAPI.Tests\AxiGitAPI.Tests.csproj", "{3875130F-C96A-4259-9402-378BAF4B9E71}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,11 +19,18 @@ Global
 		{A0A5A39F-F0CC-4190-B7C8-B9261D58E1B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0A5A39F-F0CC-4190-B7C8-B9261D58E1B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0A5A39F-F0CC-4190-B7C8-B9261D58E1B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3875130F-C96A-4259-9402-378BAF4B9E71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3875130F-C96A-4259-9402-378BAF4B9E71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3875130F-C96A-4259-9402-378BAF4B9E71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3875130F-C96A-4259-9402-378BAF4B9E71}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BD95DE9B-06DB-446D-8A3B-3F4D07B986B5}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3875130F-C96A-4259-9402-378BAF4B9E71} = {9FB6920A-8253-453B-9B28-D2746E0D9690}
 	EndGlobalSection
 EndGlobal

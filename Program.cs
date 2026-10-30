@@ -1,4 +1,6 @@
+using System.Net.Http.Headers;
 using AxiGitAPI.Options;
+using Microsoft.Extensions.Options;
 using AxiGitAPI.Services;
 using Serilog;
 
@@ -41,6 +43,24 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddScoped<RepositoryListService>();
 
+// GitHub REST client for ListDirectories, authenticated with the configured PAT.
+builder.Services.AddHttpClient(
+    DirectoryListService.GitHubClientName,
+    (serviceProvider, client) =>
+    {
+        GitHubOptions gitHub =
+            serviceProvider.GetRequiredService<IOptions<GitHubOptions>>().Value;
+
+        client.BaseAddress = new Uri("https://api.github.com/");
+        client.DefaultRequestHeaders.Accept.ParseAdd("application/vnd.github+json");
+        client.DefaultRequestHeaders.UserAgent.ParseAdd("AxiGitAPI/1.0");
+        client.DefaultRequestHeaders.Add("X-GitHub-Api-Version", "2022-11-28");
+        client.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", gitHub.Token);
+    });
+
+builder.Services.AddScoped<DirectoryListService>();
+
 var app = builder.Build();
 
 app.UseCors("AllowAll");
@@ -52,3 +72,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+// Exposes Program to WebApplicationFactory in the test project.
+public partial class Program { }

@@ -1,2 +1,6 @@
 # Machine-local secrets (GitHub PAT). See docs/adr/0001-pat-from-server-config.md
 appsettings.Local.json
+
+# Test project build output
+tests/**/bin/
+tests/**/obj/
