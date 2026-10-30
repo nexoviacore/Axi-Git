@@ -18,6 +18,11 @@ namespace AxiGitAPI.Tests
             _routes[pathAndQuery] = (status, JsonSerializer.Serialize(body));
         }
 
+        public void RespondRaw(string pathAndQuery, HttpStatusCode status, string rawBody)
+        {
+            _routes[pathAndQuery] = (status, rawBody);
+        }
+
         // Sets up a Repository whose main branch is at commitSha and holds the given tree paths.
         // Paths ending in "/" are folders ("tree"); all others are files ("blob").
         public void Repository(

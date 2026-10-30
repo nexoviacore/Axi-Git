@@ -1,4 +1,5 @@
 using System.Net.Http.Headers;
+using AxiGitAPI.Infrastructure;
 using AxiGitAPI.Options;
 using Microsoft.Extensions.Options;
 using AxiGitAPI.Services;
@@ -61,7 +62,14 @@ builder.Services.AddHttpClient(
 
 builder.Services.AddScoped<DirectoryListService>();
 
+// Unhandled exceptions become ProblemDetails responses (see GlobalExceptionHandler).
+builder.Services.AddProblemDetails();
+
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+
 var app = builder.Build();
+
+app.UseExceptionHandler();
 
 app.UseCors("AllowAll");
 

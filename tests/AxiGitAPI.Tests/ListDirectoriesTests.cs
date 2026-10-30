@@ -26,6 +26,27 @@ namespace AxiGitAPI.Tests
             return (response.StatusCode, JsonDocument.Parse(json).RootElement.Clone());
         }
 
+        private async Task<(HttpStatusCode Status, JsonElement Body, string? ContentType)> Post(
+            string url,
+            object payload)
+        {
+            HttpClient client = _factory.CreateClient();
+
+            HttpResponseMessage response = await client.PostAsJsonAsync(url, payload);
+
+            string json = await response.Content.ReadAsStringAsync();
+
+            return (
+                response.StatusCode,
+                JsonDocument.Parse(json).RootElement.Clone(),
+                response.Content.Headers.ContentType?.MediaType);
+        }
+
+        private static bool HasErrorFor(JsonElement problem, string field) =>
+            problem.TryGetProperty("errors", out JsonElement errors) &&
+            errors.EnumerateObject().Any(e =>
+                string.Equals(e.Name, field, StringComparison.OrdinalIgnoreCase));
+
         private static string[] Names(JsonElement body) =>
             body.GetProperty("directories")
                 .EnumerateArray()
@@ -182,6 +203,156 @@ namespace AxiGitAPI.Tests
             Assert.Equal(HttpStatusCode.OK, status);
             Assert.Equal(managerType, body.GetProperty("managerType").GetString());
             Assert.Equal(new[] { "Latest", "Version1" }, VersionsOf(body, "Thing"));
+        }
+
+        [Theory]
+        [InlineData("account", null)]
+        [InlineData("account", "")]
+        [InlineData("account", "   ")]
+        [InlineData("repo", null)]
+        [InlineData("repo", "")]
+        [InlineData("repo", "   ")]
+        [InlineData("managerType", null)]
+        [InlineData("managerType", "")]
+        [InlineData("managerType", "   ")]
+        public async Task Rejects_a_missing_or_blank_field_with_400_ProblemDetails_naming_it(
+            string field,
+            string? value)
+        {
+            var payload = new Dictionary<string, string?>
+            {
+                ["account"] = "acme",
+                ["repo"] = "axi-products",
+                ["managerType"] = "Product",
+                [field] = value
+            };
+
+            var (status, problem, contentType) =
+                await Post("/api/git/listdirectories", payload);
+
+            Assert.Equal(HttpStatusCode.BadRequest, status);
+            Assert.Equal("application/problem+json", contentType);
+            Assert.Equal(400, problem.GetProperty("status").GetInt32());
+            Assert.True(HasErrorFor(problem, field), $"Expected an error naming '{field}': {problem}");
+            Assert.Empty(_factory.GitHub.Requests);
+        }
+
+        [Fact]
+        public async Task Rejects_a_request_with_no_fields_at_all_with_400()
+        {
+            var (status, problem, _) =
+                await Post("/api/git/listdirectories", new { });
+
+            Assert.Equal(HttpStatusCode.BadRequest, status);
+            Assert.True(HasErrorFor(problem, "account"));
+            Assert.True(HasErrorFor(problem, "repo"));
+            Assert.True(HasErrorFor(problem, "managerType"));
+        }
+
+        [Fact]
+        public async Task Rejects_an_unknown_Manager_Type_with_400_ProblemDetails()
+        {
+            var (status, problem, contentType) = await Post(
+                "/api/git/listdirectories",
+                new { account = "acme", repo = "axi-products", managerType = "Widget" });
+
+            Assert.Equal(HttpStatusCode.BadRequest, status);
+            Assert.Equal("application/problem+json", contentType);
+            Assert.True(HasErrorFor(problem, "managerType"), $"Expected an error naming 'managerType': {problem}");
+            Assert.Empty(_factory.GitHub.Requests);
+        }
+
+        [Theory]
+        [InlineData("product")]
+        [InlineData("PRODUCT")]
+        [InlineData("changerequest")]
+        [InlineData("PLUGIN")]
+        public async Task Accepts_a_Manager_Type_in_any_letter_case(string managerType)
+        {
+            _factory.GitHub.Repository(
+                "acme", "axi-products", "c0ffee1",
+                "Customer/",
+                "Customer/Version1/");
+
+            var (status, _) = await ListDirectories(managerType: managerType);
+
+            Assert.Equal(HttpStatusCode.OK, status);
+        }
+
+        [Fact]
+        public async Task Returns_500_ProblemDetails_without_internal_details_on_an_unexpected_failure()
+        {
+            _factory.GitHub.RespondRaw(
+                "/repos/acme/axi-products/commits/main",
+                HttpStatusCode.OK,
+                "{ this is not json SECRET-INTERNAL-MARKER");
+
+            HttpClient client = _factory.CreateClient();
+
+            HttpResponseMessage response = await client.PostAsJsonAsync(
+                "/api/git/listdirectories",
+                new { account = "acme", repo = "axi-products", managerType = "Product" });
+
+            string raw = await response.Content.ReadAsStringAsync();
+
+            Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
+            Assert.Equal("application/problem+json", response.Content.Headers.ContentType?.MediaType);
+
+            JsonElement problem = JsonDocument.Parse(raw).RootElement;
+            Assert.Equal(500, problem.GetProperty("status").GetInt32());
+            Assert.DoesNotContain("SECRET-INTERNAL-MARKER", raw);
+            Assert.DoesNotContain("JsonException", raw);
+            Assert.DoesNotContain("at AxiGitAPI", raw);
+            Assert.DoesNotContain(AxiGitApiFactory.TestPat, raw);
+        }
+
+        [Fact]
+        public async Task Keeps_CORS_headers_on_a_500_so_browser_clients_can_read_the_problem()
+        {
+            _factory.GitHub.RespondRaw(
+                "/repos/acme/axi-products/commits/main",
+                HttpStatusCode.OK,
+                "not json");
+
+            HttpClient client = _factory.CreateClient();
+
+            var request = new HttpRequestMessage(HttpMethod.Post, "/api/git/listdirectories")
+            {
+                Content = JsonContent.Create(new { account = "acme", repo = "axi-products", managerType = "Product" })
+            };
+            request.Headers.Add("Origin", "https://axicmdline.example");
+
+            HttpResponseMessage response = await client.SendAsync(request);
+
+            Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
+            Assert.True(
+                response.Headers.TryGetValues("Access-Control-Allow-Origin", out var origins),
+                "Expected Access-Control-Allow-Origin on the 500 response.");
+            Assert.Equal("*", origins!.Single());
+        }
+
+        [Fact]
+        public async Task Existing_endpoints_keep_their_own_error_response_shape()
+        {
+            var (status, body, _) = await Post(
+                "/api/git/push",
+                new
+                {
+                    physicalPath = @"Z:\does\not\exist\axigit-test",
+                    targetRepo = "axi-products",
+                    productName = "Customer",
+                    productDescription = "d",
+                    productVersion = "1",
+                    productAuthor = "a",
+                    gitBranch = "main",
+                    managerType = "Product",
+                    ensureRepository = false,
+                    compress = false
+                });
+
+            Assert.Equal(HttpStatusCode.BadRequest, status);
+            Assert.False(body.GetProperty("success").GetBoolean());
+            Assert.Equal("Physical path does not exist.", body.GetProperty("message").GetString());
         }
 
         [Fact]
