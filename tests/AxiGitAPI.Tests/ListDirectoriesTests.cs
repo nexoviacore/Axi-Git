@@ -564,6 +564,71 @@ namespace AxiGitAPI.Tests
             Assert.Equal("Physical path does not exist.", body.GetProperty("message").GetString());
         }
 
+        [Theory]
+        [InlineData("Plugin")]
+        [InlineData("plugin")]
+        public async Task Lists_every_visible_top_level_folder_as_a_Plugin_even_without_Versions(string managerType)
+        {
+            _factory.GitHub.Repository(
+                "acme", "axpert-plugins", "c0ffee1",
+                ".github/",
+                ".github/workflows/",
+                "readme.md",
+                "PlgTest/",
+                "PlgTest/CustomPages/",
+                "PlgTest/Structures/",
+                "Axi_Beta/",
+                "Axi_Beta/README.md",
+                "Axi_Beta/PluginScripts/",
+                "OnlyFiles/",
+                "OnlyFiles/plugin.json");
+
+            var (status, body) = await ListDirectories(repo: "axpert-plugins", managerType: managerType);
+
+            Assert.Equal(HttpStatusCode.OK, status);
+            Assert.Equal(3, body.GetProperty("directoryCount").GetInt32());
+            Assert.Equal(new[] { "Axi_Beta", "OnlyFiles", "PlgTest" }, Names(body));
+            Assert.Empty(VersionsOf(body, "Axi_Beta"));
+            Assert.Empty(VersionsOf(body, "OnlyFiles"));
+            Assert.Empty(VersionsOf(body, "PlgTest"));
+        }
+
+        [Fact]
+        public async Task Lists_Versions_for_a_Plugin_that_has_them()
+        {
+            _factory.GitHub.Repository(
+                "acme", "axpert-plugins", "c0ffee1",
+                "PlgTest/",
+                "PlgTest/Structures/",
+                "Versioned/",
+                "Versioned/Version2/",
+                "Versioned/Latest/",
+                "Versioned/Version1/");
+
+            var (_, body) = await ListDirectories(repo: "axpert-plugins", managerType: "Plugin");
+
+            Assert.Equal(new[] { "PlgTest", "Versioned" }, Names(body));
+            Assert.Empty(VersionsOf(body, "PlgTest"));
+            Assert.Equal(new[] { "Latest", "Version1", "Version2" }, VersionsOf(body, "Versioned"));
+        }
+
+        [Theory]
+        [InlineData("Product")]
+        [InlineData("ChangeRequest")]
+        public async Task Still_ignores_folders_without_Versions_for_Products_and_ChangeRequests(string managerType)
+        {
+            _factory.GitHub.Repository(
+                "acme", "axi-products", "c0ffee1",
+                "PlgTest/",
+                "PlgTest/Structures/",
+                "Customer/",
+                "Customer/Version1/");
+
+            var (_, body) = await ListDirectories(managerType: managerType);
+
+            Assert.Equal(new[] { "Customer" }, Names(body));
+        }
+
         [Fact]
         public async Task Authenticates_to_GitHub_with_the_configured_PAT_and_ignores_any_token_in_the_request()
         {

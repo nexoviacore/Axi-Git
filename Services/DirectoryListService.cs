@@ -16,6 +16,8 @@ namespace AxiGitAPI.Services
 
         private const string LatestFolderName = "Latest";
 
+        private const string PluginManagerType = "Plugin";
+
         private static readonly Regex VersionFolderPattern =
             new Regex(
                 @"^Version(\d{1,9})$",
@@ -108,8 +110,12 @@ namespace AxiGitAPI.Services
                     ? await GetTopTwoLevels(client, repoPath, rootTreeSha, account, repo, cancellationToken)
                     : tree.Tree;
 
+            // Plugins have no Version selection yet, so a Plugin folder needs no Versions to count.
+            bool isPlugin =
+                string.Equals(request.ManagerType.Trim(), PluginManagerType, StringComparison.OrdinalIgnoreCase);
+
             List<DirectoryEntry> directories =
-                BuildDirectories(entries);
+                BuildDirectories(entries, foldersWithoutVersionsAreDirectories: isPlugin);
 
             _logger.LogInformation(
                 "Found {DirectoryCount} directories in Repository '{Account}/{Repository}' at {CommitSha}.",
@@ -141,44 +147,61 @@ namespace AxiGitAPI.Services
             };
         }
 
+        // Product / ChangeRequest: a top-level folder is a Directory only if it holds Latest or a Version.
+        // Plugin: every visible top-level folder is a Directory; Versions are listed when present, else [].
         private static List<DirectoryEntry> BuildDirectories(
-            List<GitHubTreeEntry> entries)
+            List<GitHubTreeEntry> entries,
+            bool foldersWithoutVersionsAreDirectories)
         {
-            // Second-level folders, grouped by their top-level Directory.
-            return entries
-                .Where(e => e.Type == "tree")
-                .Select(e => e.Path.Split('/'))
-                .Where(segments => segments.Length == 2)
-                .GroupBy(segments => segments[0], segments => segments[1])
-                .Select(group =>
+            List<string[]> folders =
+                entries
+                    .Where(e => e.Type == "tree")
+                    .Select(e => e.Path.Split('/'))
+                    .ToList();
+
+            // Second-level folder names, keyed by their top-level folder.
+            ILookup<string, string> childFolders =
+                folders
+                    .Where(segments => segments.Length == 2)
+                    .ToLookup(segments => segments[0], segments => segments[1]);
+
+            return folders
+                .Where(segments => segments.Length == 1)
+                .Select(segments => segments[0])
+                .Where(name => !name.StartsWith('.'))
+                .Select(name => new DirectoryEntry
                 {
-                    // Latest keeps its stored spelling too: GitHub paths are case-sensitive.
-                    string? latest =
-                        group.FirstOrDefault(name =>
-                            string.Equals(name, LatestFolderName, StringComparison.OrdinalIgnoreCase));
-
-                    // Version folders keep their stored spelling; order by N, not text.
-                    List<string> versions =
-                        group
-                            .Select(name => VersionFolderPattern.Match(name))
-                            .Where(match => match.Success)
-                            .OrderBy(match => int.Parse(match.Groups[1].Value))
-                            .Select(match => match.Value)
-                            .ToList();
-
-                    if (latest != null)
-                        versions.Insert(0, latest);
-
-                    return new DirectoryEntry
-                    {
-                        Name = group.Key,
-                        Versions = versions
-                    };
+                    Name = name,
+                    Versions = SelectableVersions(childFolders[name])
                 })
-                // A top-level folder is a Directory only if it holds Latest or a Version.
-                .Where(directory => directory.Versions.Count > 0)
+                .Where(directory =>
+                    foldersWithoutVersionsAreDirectories || directory.Versions.Count > 0)
                 .OrderBy(directory => directory.Name, StringComparer.OrdinalIgnoreCase)
                 .ToList();
+        }
+
+        // "Latest" first (when present), then Version{N} in numeric order,
+        // each with its stored spelling: GitHub paths are case-sensitive.
+        private static List<string> SelectableVersions(IEnumerable<string> childFolderNames)
+        {
+            List<string> names = childFolderNames.ToList();
+
+            string? latest =
+                names.FirstOrDefault(name =>
+                    string.Equals(name, LatestFolderName, StringComparison.OrdinalIgnoreCase));
+
+            List<string> versions =
+                names
+                    .Select(name => VersionFolderPattern.Match(name))
+                    .Where(match => match.Success)
+                    .OrderBy(match => int.Parse(match.Groups[1].Value))
+                    .Select(match => match.Value)
+                    .ToList();
+
+            if (latest != null)
+                versions.Insert(0, latest);
+
+            return versions;
         }
 
         // Lists every top-level folder and its immediate children, with paths
