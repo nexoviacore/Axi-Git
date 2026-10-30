@@ -1,9 +1,0 @@
-{
-  "success": true,
-  "message": "Data fetched successfully",
-  "payload": {
-    "allPayloads": {},
-    "flatQueries": [],
-    "PostgresObjects": []
-  }
-}

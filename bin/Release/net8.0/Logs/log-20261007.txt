@@ -1,8 +1,0 @@
-2026-10-07 10:43:18.836 +05:30 [INF] Application started. Press Ctrl+C to shut down.
-2026-10-07 10:43:18.945 +05:30 [INF] Hosting environment: Production
-2026-10-07 10:43:18.947 +05:30 [INF] Content root path: C:\Users\Dhanya.j\source\repos\AxiGitAPI\bin\Release\net8.0
-2026-10-07 10:43:19.038 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5151/ - null null
-2026-10-07 10:43:19.098 +05:30 [WRN] Failed to determine the https port for redirect.
-2026-10-07 10:43:19.105 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5151/ - 499 null null 76.1236ms
-2026-10-07 10:43:19.114 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5151/, Response status code: 499
-2026-10-07 10:44:23.593 +05:30 [INF] Application is shutting down...
