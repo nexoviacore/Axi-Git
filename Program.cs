@@ -19,8 +19,8 @@ builder.Configuration
 builder.Services.Configure<GitHubOptions>(
     builder.Configuration.GetSection(GitHubOptions.SectionName));
 
-// Configure Serilog
-Log.Logger = new LoggerConfiguration().MinimumLevel.Information().WriteTo.File("Logs/log-.txt",rollingInterval: RollingInterval.Day,retainedFileCountLimit: 7).CreateLogger();
+// Configure Serilog: console (visible during `dotnet run`) and daily rolling files.
+Log.Logger = new LoggerConfiguration().MinimumLevel.Information().WriteTo.Console().WriteTo.File("Logs/log-.txt",rollingInterval: RollingInterval.Day,retainedFileCountLimit: 7).CreateLogger();
 
 builder.Services.AddCors(options =>
 {
