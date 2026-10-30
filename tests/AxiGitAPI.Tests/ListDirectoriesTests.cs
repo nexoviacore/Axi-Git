@@ -306,6 +306,140 @@ namespace AxiGitAPI.Tests
             Assert.DoesNotContain(AxiGitApiFactory.TestPat, raw);
         }
 
+        private async Task<(HttpStatusCode Status, JsonElement Problem, string Raw, string? ContentType)> ListDirectoriesRaw()
+        {
+            HttpClient client = _factory.CreateClient();
+
+            HttpResponseMessage response = await client.PostAsJsonAsync(
+                "/api/git/listdirectories",
+                new { account = "acme", repo = "axi-products", managerType = "Product" });
+
+            string raw = await response.Content.ReadAsStringAsync();
+
+            return (
+                response.StatusCode,
+                JsonDocument.Parse(raw).RootElement.Clone(),
+                raw,
+                response.Content.Headers.ContentType?.MediaType);
+        }
+
+        [Fact]
+        public async Task Returns_404_ProblemDetails_when_the_Repository_is_not_found()
+        {
+            _factory.GitHub.Respond(
+                "/repos/acme/axi-products/commits/main",
+                HttpStatusCode.NotFound,
+                new { message = "Not Found" });
+
+            var (status, problem, raw, contentType) = await ListDirectoriesRaw();
+
+            Assert.Equal(HttpStatusCode.NotFound, status);
+            Assert.Equal("application/problem+json", contentType);
+            Assert.Equal(404, problem.GetProperty("status").GetInt32());
+            Assert.DoesNotContain(AxiGitApiFactory.TestPat, raw);
+        }
+
+        [Fact]
+        public async Task Returns_404_ProblemDetails_when_the_Repository_has_no_main_branch()
+        {
+            _factory.GitHub.Respond(
+                "/repos/acme/axi-products/commits/main",
+                HttpStatusCode.UnprocessableEntity,
+                new { message = "No commit found for SHA: main" });
+
+            var (status, problem, raw, contentType) = await ListDirectoriesRaw();
+
+            Assert.Equal(HttpStatusCode.NotFound, status);
+            Assert.Equal("application/problem+json", contentType);
+            Assert.Equal(404, problem.GetProperty("status").GetInt32());
+            Assert.DoesNotContain(AxiGitApiFactory.TestPat, raw);
+        }
+
+        [Theory]
+        [InlineData(HttpStatusCode.Unauthorized)]
+        [InlineData(HttpStatusCode.Forbidden)]
+        [InlineData(HttpStatusCode.InternalServerError)]
+        [InlineData(HttpStatusCode.BadGateway)]
+        [InlineData(HttpStatusCode.ServiceUnavailable)]
+        public async Task Returns_502_ProblemDetails_when_GitHub_rejects_the_PAT_or_fails(HttpStatusCode gitHubStatus)
+        {
+            _factory.GitHub.Respond(
+                "/repos/acme/axi-products/commits/main",
+                gitHubStatus,
+                new { message = "GitHub said no SECRET-GITHUB-BODY" });
+
+            var (status, problem, raw, contentType) = await ListDirectoriesRaw();
+
+            Assert.Equal(HttpStatusCode.BadGateway, status);
+            Assert.Equal("application/problem+json", contentType);
+            Assert.Equal(502, problem.GetProperty("status").GetInt32());
+            Assert.DoesNotContain(AxiGitApiFactory.TestPat, raw);
+            Assert.DoesNotContain("SECRET-GITHUB-BODY", raw);
+        }
+
+        [Theory]
+        [InlineData(HttpStatusCode.ServiceUnavailable)]
+        [InlineData(HttpStatusCode.NotFound)]
+        [InlineData(HttpStatusCode.UnprocessableEntity)]
+        public async Task Returns_502_when_reading_the_tree_fails_after_the_commit_was_found(HttpStatusCode treeStatus)
+        {
+            _factory.GitHub.Respond(
+                "/repos/acme/axi-products/commits/main",
+                HttpStatusCode.OK,
+                new { sha = "c0ffee1", commit = new { tree = new { sha = "tree-c0ffee1" } } });
+            _factory.GitHub.Respond(
+                "/repos/acme/axi-products/git/trees/tree-c0ffee1?recursive=1",
+                treeStatus,
+                new { message = "tree failed SECRET-GITHUB-BODY" });
+
+            var (status, problem, raw, contentType) = await ListDirectoriesRaw();
+
+            Assert.Equal(HttpStatusCode.BadGateway, status);
+            Assert.Equal("application/problem+json", contentType);
+            Assert.Equal(502, problem.GetProperty("status").GetInt32());
+            Assert.DoesNotContain(AxiGitApiFactory.TestPat, raw);
+            Assert.DoesNotContain("SECRET-GITHUB-BODY", raw);
+        }
+
+        public static TheoryData<Exception> UnreachableGitHubFailures => new()
+        {
+            new HttpRequestException("No such host is known. SECRET-TRANSPORT-DETAIL"),
+            new TaskCanceledException(
+                "The request was canceled due to the configured HttpClient.Timeout. SECRET-TRANSPORT-DETAIL",
+                new TimeoutException())
+        };
+
+        [Theory]
+        [MemberData(nameof(UnreachableGitHubFailures))]
+        public async Task Returns_502_ProblemDetails_when_GitHub_cannot_be_reached(Exception failure)
+        {
+            _factory.GitHub.Throw("/repos/acme/axi-products/commits/main", failure);
+
+            var (status, problem, raw, contentType) = await ListDirectoriesRaw();
+
+            Assert.Equal(HttpStatusCode.BadGateway, status);
+            Assert.Equal("application/problem+json", contentType);
+            Assert.Equal(502, problem.GetProperty("status").GetInt32());
+            Assert.DoesNotContain("SECRET-TRANSPORT-DETAIL", raw);
+        }
+
+        [Fact]
+        public async Task Returns_200_with_no_Directories_for_an_empty_Repository()
+        {
+            _factory.GitHub.Respond(
+                "/repos/acme/axi-products/commits/main",
+                HttpStatusCode.Conflict,
+                new { message = "Git Repository is empty." });
+
+            var (status, body, _, _) = await ListDirectoriesRaw();
+
+            Assert.Equal(HttpStatusCode.OK, status);
+            Assert.Equal("main", body.GetProperty("branch").GetString());
+            Assert.Equal(JsonValueKind.Null, body.GetProperty("commitSha").ValueKind);
+            Assert.Equal(0, body.GetProperty("directoryCount").GetInt32());
+            Assert.Empty(body.GetProperty("directories").EnumerateArray());
+        }
+
         [Fact]
         public async Task Keeps_CORS_headers_on_a_500_so_browser_clients_can_read_the_problem()
         {

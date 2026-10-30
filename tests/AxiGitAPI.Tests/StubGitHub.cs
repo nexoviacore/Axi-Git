@@ -23,6 +23,15 @@ namespace AxiGitAPI.Tests
             _routes[pathAndQuery] = (status, rawBody);
         }
 
+        // Simulates GitHub being unreachable (connection failure, timeout) for a path.
+        public void Throw(string pathAndQuery, Exception exception)
+        {
+            _failures[pathAndQuery] = exception;
+        }
+
+        private readonly Dictionary<string, Exception> _failures =
+            new(StringComparer.OrdinalIgnoreCase);
+
         // Sets up a Repository whose main branch is at commitSha and holds the given tree paths.
         // Paths ending in "/" are folders ("tree"); all others are files ("blob").
         public void Repository(
@@ -60,6 +69,11 @@ namespace AxiGitAPI.Tests
             Requests.Add(request);
 
             string key = request.RequestUri!.PathAndQuery;
+
+            if (_failures.TryGetValue(key, out Exception? failure))
+            {
+                return Task.FromException<HttpResponseMessage>(failure);
+            }
 
             if (!_routes.TryGetValue(key, out var route))
             {

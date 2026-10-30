@@ -10,7 +10,8 @@ namespace AxiGitAPI.Models
 
         public string Branch { get; set; } = string.Empty;
 
-        public string CommitSha { get; set; } = string.Empty;
+        // Null when the Repository is empty (main has no commits).
+        public string? CommitSha { get; set; }
 
         public DateTimeOffset RetrievedAt { get; set; }
 

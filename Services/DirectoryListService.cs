@@ -1,3 +1,4 @@
+using System.Net;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using AxiGitAPI.Models;
@@ -51,16 +52,53 @@ namespace AxiGitAPI.Services
             HttpClient client =
                 _httpClientFactory.CreateClient(GitHubClientName);
 
-            GitHubCommit commit =
-                await GetJson<GitHubCommit>(
+            using HttpResponseMessage commitResponse =
+                await GetFromGitHub(
                     client,
                     $"{repoPath}/commits/{Branch}",
                     cancellationToken);
 
-            GitHubTree tree =
-                await GetJson<GitHubTree>(
+            // GitHub answers 409 Conflict when the Repository has no commits yet.
+            // An empty Repository is valid: it simply has no Directories.
+            if (commitResponse.StatusCode == HttpStatusCode.Conflict)
+            {
+                _logger.LogInformation(
+                    "Repository '{Account}/{Repository}' is empty.",
+                    account,
+                    repo);
+
+                return CreateResponse(request, account, repo, null, new List<DirectoryEntry>());
+            }
+
+            // Only the commit lookup can tell us the Repository or main is missing:
+            // 404 = unknown Repository or not visible to the PAT,
+            // 422 = no main branch ("No commit found for SHA: main").
+            if (commitResponse.StatusCode == HttpStatusCode.NotFound ||
+                commitResponse.StatusCode == HttpStatusCode.UnprocessableEntity)
+            {
+                await LogGitHubFailure(commitResponse, account, repo, cancellationToken);
+
+                throw new RepositoryNotFoundException(account, repo);
+            }
+
+            GitHubCommit commit =
+                await ReadJsonOrThrow<GitHubCommit>(
+                    commitResponse,
+                    account,
+                    repo,
+                    cancellationToken);
+
+            using HttpResponseMessage treeResponse =
+                await GetFromGitHub(
                     client,
                     $"{repoPath}/git/trees/{commit.Commit.Tree.Sha}?recursive=1",
+                    cancellationToken);
+
+            GitHubTree tree =
+                await ReadJsonOrThrow<GitHubTree>(
+                    treeResponse,
+                    account,
+                    repo,
                     cancellationToken);
 
             List<DirectoryEntry> directories =
@@ -73,13 +111,23 @@ namespace AxiGitAPI.Services
                 repo,
                 commit.Sha);
 
+            return CreateResponse(request, account, repo, commit.Sha, directories);
+        }
+
+        private static ListDirectoriesResponse CreateResponse(
+            ListDirectoriesRequest request,
+            string account,
+            string repo,
+            string? commitSha,
+            List<DirectoryEntry> directories)
+        {
             return new ListDirectoriesResponse
             {
                 Account = account,
                 Repo = repo,
                 ManagerType = request.ManagerType.Trim(),
                 Branch = Branch,
-                CommitSha = commit.Sha,
+                CommitSha = commitSha,
                 RetrievedAt = DateTimeOffset.UtcNow,
                 DirectoryCount = directories.Count,
                 Directories = directories
@@ -126,26 +174,70 @@ namespace AxiGitAPI.Services
                 .ToList();
         }
 
-        private static async Task<T> GetJson<T>(
+        // A GitHub that cannot be reached (connection failure, timeout) is a GitHubApiException (502).
+        // A cancellation requested by our own caller is left to propagate.
+        private async Task<HttpResponseMessage> GetFromGitHub(
             HttpClient client,
             string url,
             CancellationToken cancellationToken)
         {
-            HttpResponseMessage response =
-                await client.GetAsync(url, cancellationToken);
+            try
+            {
+                return await client.GetAsync(url, cancellationToken);
+            }
+            catch (HttpRequestException ex)
+            {
+                _logger.LogWarning(ex, "GitHub request '{Url}' could not be sent.", url);
+
+                throw new GitHubApiException();
+            }
+            catch (TaskCanceledException ex) when (!cancellationToken.IsCancellationRequested)
+            {
+                _logger.LogWarning(ex, "GitHub request '{Url}' timed out.", url);
+
+                throw new GitHubApiException();
+            }
+        }
+
+        // Any non-success status here is a GitHubApiException (502).
+        // GitHub's body is logged but never put into the exception message.
+        private async Task<T> ReadJsonOrThrow<T>(
+            HttpResponseMessage response,
+            string account,
+            string repo,
+            CancellationToken cancellationToken)
+        {
+            if (!response.IsSuccessStatusCode)
+            {
+                await LogGitHubFailure(response, account, repo, cancellationToken);
+
+                throw new GitHubApiException((int)response.StatusCode);
+            }
 
             string json =
                 await response.Content.ReadAsStringAsync(cancellationToken);
 
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception(
-                    $"GitHub request '{url}' failed. " +
-                    $"Status: {(int)response.StatusCode}. Response: {json}");
-            }
-
             return JsonSerializer.Deserialize<T>(json, JsonOptions)
-                ?? throw new Exception($"GitHub request '{url}' returned no content.");
+                ?? throw new JsonException(
+                    $"GitHub returned no content for '{response.RequestMessage?.RequestUri}'.");
+        }
+
+        private async Task LogGitHubFailure(
+            HttpResponseMessage response,
+            string account,
+            string repo,
+            CancellationToken cancellationToken)
+        {
+            string body =
+                await response.Content.ReadAsStringAsync(cancellationToken);
+
+            _logger.LogWarning(
+                "GitHub request '{Url}' for Repository '{Account}/{Repository}' failed with {StatusCode}: {Response}",
+                response.RequestMessage?.RequestUri,
+                account,
+                repo,
+                (int)response.StatusCode,
+                body);
         }
 
         // -------------------------------------------------------------

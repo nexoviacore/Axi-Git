@@ -1,3 +1,4 @@
+using AxiGitAPI.Services;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,14 +26,44 @@ namespace AxiGitAPI.Infrastructure
             Exception exception,
             CancellationToken cancellationToken)
         {
-            _logger.LogError(
-                exception,
-                "Unhandled exception for {Method} {Path}.",
-                httpContext.Request.Method,
-                httpContext.Request.Path);
+            // Known exceptions carry client-safe messages; anything else stays in the log only.
+            (int status, string title, string? detail) = exception switch
+            {
+                RepositoryNotFoundException => (
+                    StatusCodes.Status404NotFound,
+                    "Repository not found.",
+                    exception.Message),
 
-            // Internal details stay in the log; the client gets a generic message.
-            httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                GitHubApiException => (
+                    StatusCodes.Status502BadGateway,
+                    "GitHub request failed.",
+                    exception.Message),
+
+                _ => (
+                    StatusCodes.Status500InternalServerError,
+                    "An unexpected error occurred.",
+                    (string?)null)
+            };
+
+            if (status == StatusCodes.Status500InternalServerError)
+            {
+                _logger.LogError(
+                    exception,
+                    "Unhandled exception for {Method} {Path}.",
+                    httpContext.Request.Method,
+                    httpContext.Request.Path);
+            }
+            else
+            {
+                _logger.LogWarning(
+                    "{Method} {Path} failed with {Status}: {Message}",
+                    httpContext.Request.Method,
+                    httpContext.Request.Path,
+                    status,
+                    exception.Message);
+            }
+
+            httpContext.Response.StatusCode = status;
 
             return await _problemDetailsService.TryWriteAsync(
                 new ProblemDetailsContext
@@ -40,8 +71,9 @@ namespace AxiGitAPI.Infrastructure
                     HttpContext = httpContext,
                     ProblemDetails = new ProblemDetails
                     {
-                        Status = StatusCodes.Status500InternalServerError,
-                        Title = "An unexpected error occurred."
+                        Status = status,
+                        Title = title,
+                        Detail = detail
                     }
                 });
         }
