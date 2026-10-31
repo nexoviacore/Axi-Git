@@ -93,7 +93,7 @@ namespace AxiGitAPI.Tests
         }
 
         [Fact]
-        public async Task Ignores_top_level_folders_and_files_that_hold_no_Latest_or_Version()
+        public async Task Ignores_top_level_files_and_hidden_folders()
         {
             _factory.GitHub.Repository(
                 "acme", "axi-products", "c0ffee1",
@@ -111,9 +111,10 @@ namespace AxiGitAPI.Tests
             var (status, body) = await ListDirectories();
 
             Assert.Equal(HttpStatusCode.OK, status);
-            Assert.Equal(new[] { "Customer" }, Names(body));
+            Assert.Equal(new[] { "Customer", "docs" }, Names(body));
             Assert.Equal(new[] { "Version1" }, VersionsOf(body, "Customer"));
-            Assert.Equal(1, body.GetProperty("directoryCount").GetInt32());
+            Assert.Empty(VersionsOf(body, "docs"));
+            Assert.Equal(2, body.GetProperty("directoryCount").GetInt32());
         }
 
         [Fact]
@@ -469,10 +470,11 @@ namespace AxiGitAPI.Tests
 
             Assert.Equal(HttpStatusCode.OK, status);
             Assert.Equal("c0ffee1", body.GetProperty("commitSha").GetString());
-            Assert.Equal(3, body.GetProperty("directoryCount").GetInt32());
-            Assert.Equal(new[] { "billing", "Customer", "zeta" }, Names(body));
+            Assert.Equal(4, body.GetProperty("directoryCount").GetInt32());
+            Assert.Equal(new[] { "billing", "Customer", "docs", "zeta" }, Names(body));
             Assert.Equal(new[] { "Latest" }, VersionsOf(body, "billing"));
             Assert.Equal(new[] { "latest", "Version2", "Version10" }, VersionsOf(body, "Customer"));
+            Assert.Empty(VersionsOf(body, "docs"));
             Assert.Equal(new[] { "Version1" }, VersionsOf(body, "zeta"));
         }
 
@@ -565,9 +567,11 @@ namespace AxiGitAPI.Tests
         }
 
         [Theory]
+        [InlineData("Product")]
+        [InlineData("ChangeRequest")]
         [InlineData("Plugin")]
         [InlineData("plugin")]
-        public async Task Lists_every_visible_top_level_folder_as_a_Plugin_even_without_Versions(string managerType)
+        public async Task Lists_every_visible_top_level_folder_even_without_Versions(string managerType)
         {
             _factory.GitHub.Repository(
                 "acme", "axpert-plugins", "c0ffee1",
@@ -593,11 +597,16 @@ namespace AxiGitAPI.Tests
             Assert.Empty(VersionsOf(body, "PlgTest"));
         }
 
-        [Fact]
-        public async Task Lists_Versions_for_a_Plugin_that_has_them()
+        [Theory]
+        [InlineData("Product")]
+        [InlineData("ChangeRequest")]
+        [InlineData("Plugin")]
+        public async Task Lists_folders_with_and_without_Versions_side_by_side(string managerType)
         {
             _factory.GitHub.Repository(
                 "acme", "axpert-plugins", "c0ffee1",
+                "__bkp/",
+                "__bkp/Axi/",
                 "PlgTest/",
                 "PlgTest/Structures/",
                 "Versioned/",
@@ -605,28 +614,12 @@ namespace AxiGitAPI.Tests
                 "Versioned/Latest/",
                 "Versioned/Version1/");
 
-            var (_, body) = await ListDirectories(repo: "axpert-plugins", managerType: "Plugin");
+            var (_, body) = await ListDirectories(repo: "axpert-plugins", managerType: managerType);
 
-            Assert.Equal(new[] { "PlgTest", "Versioned" }, Names(body));
+            Assert.Equal(new[] { "PlgTest", "Versioned", "__bkp" }, Names(body));
+            Assert.Empty(VersionsOf(body, "__bkp"));
             Assert.Empty(VersionsOf(body, "PlgTest"));
             Assert.Equal(new[] { "Latest", "Version1", "Version2" }, VersionsOf(body, "Versioned"));
-        }
-
-        [Theory]
-        [InlineData("Product")]
-        [InlineData("ChangeRequest")]
-        public async Task Still_ignores_folders_without_Versions_for_Products_and_ChangeRequests(string managerType)
-        {
-            _factory.GitHub.Repository(
-                "acme", "axi-products", "c0ffee1",
-                "PlgTest/",
-                "PlgTest/Structures/",
-                "Customer/",
-                "Customer/Version1/");
-
-            var (_, body) = await ListDirectories(managerType: managerType);
-
-            Assert.Equal(new[] { "Customer" }, Names(body));
         }
 
         [Fact]

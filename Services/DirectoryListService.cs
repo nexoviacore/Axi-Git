@@ -16,8 +16,6 @@ namespace AxiGitAPI.Services
 
         private const string LatestFolderName = "Latest";
 
-        private const string PluginManagerType = "Plugin";
-
         private static readonly Regex VersionFolderPattern =
             new Regex(
                 @"^Version(\d{1,9})$",
@@ -110,12 +108,7 @@ namespace AxiGitAPI.Services
                     ? await GetTopTwoLevels(client, repoPath, rootTreeSha, account, repo, cancellationToken)
                     : tree.Tree;
 
-            // Plugins have no Version selection yet, so a Plugin folder needs no Versions to count.
-            bool isPlugin =
-                string.Equals(request.ManagerType.Trim(), PluginManagerType, StringComparison.OrdinalIgnoreCase);
-
-            List<DirectoryEntry> directories =
-                BuildDirectories(entries, foldersWithoutVersionsAreDirectories: isPlugin);
+            List<DirectoryEntry> directories = BuildDirectories(entries);
 
             _logger.LogInformation(
                 "Found {DirectoryCount} directories in Repository '{Account}/{Repository}' at {CommitSha}.",
@@ -147,11 +140,9 @@ namespace AxiGitAPI.Services
             };
         }
 
-        // Product / ChangeRequest: a top-level folder is a Directory only if it holds Latest or a Version.
-        // Plugin: every visible top-level folder is a Directory; Versions are listed when present, else [].
-        private static List<DirectoryEntry> BuildDirectories(
-            List<GitHubTreeEntry> entries,
-            bool foldersWithoutVersionsAreDirectories)
+        // Every visible top-level folder is a Directory, for every Manager Type.
+        // Its Versions are listed when present, else [].
+        private static List<DirectoryEntry> BuildDirectories(List<GitHubTreeEntry> entries)
         {
             List<string[]> folders =
                 entries
@@ -174,8 +165,6 @@ namespace AxiGitAPI.Services
                     Name = name,
                     Versions = SelectableVersions(childFolders[name])
                 })
-                .Where(directory =>
-                    foldersWithoutVersionsAreDirectories || directory.Versions.Count > 0)
                 .OrderBy(directory => directory.Name, StringComparer.OrdinalIgnoreCase)
                 .ToList();
         }
