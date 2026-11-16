@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using AxiGitAPI.Models;
@@ -6,8 +7,8 @@ using AxiGitAPI.Models;
 namespace AxiGitAPI.Services
 {
     // Lists the Directories (and their Versions) on a Repository's main branch.
-    // Authenticates with the PAT from server configuration via the named
-    // GitHub HttpClient (see docs/adr/0001-pat-from-server-config.md).
+    // Authenticates with the PAT sent in the request
+    // (see docs/adr/0002-pat-from-the-request.md).
     public class DirectoryListService
     {
         public const string GitHubClientName = "GitHub";
@@ -49,8 +50,13 @@ namespace AxiGitAPI.Services
             string repoPath =
                 $"repos/{Uri.EscapeDataString(account)}/{Uri.EscapeDataString(repo)}";
 
+            // The factory hands out a new HttpClient each time, so this PAT
+            // applies to this request's GitHub calls only.
             HttpClient client =
                 _httpClientFactory.CreateClient(GitHubClientName);
+
+            client.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", request.Token.Trim());
 
             using HttpResponseMessage commitResponse =
                 await GetFromGitHub(
@@ -308,7 +314,8 @@ namespace AxiGitAPI.Services
             }
         }
 
-        // Any non-success status here is a GitHubApiException (502).
+        // 401 is a GitHubPatRejectedException (401); any other non-success status
+        // is a GitHubApiException (502).
         // GitHub's body is logged but never put into the exception message.
         private async Task<T> ReadJsonOrThrow<T>(
             HttpResponseMessage response,
@@ -319,6 +326,9 @@ namespace AxiGitAPI.Services
             if (!response.IsSuccessStatusCode)
             {
                 await LogGitHubFailure(response, account, repo, cancellationToken);
+
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                    throw new GitHubPatRejectedException();
 
                 throw new GitHubApiException((int)response.StatusCode);
             }

@@ -8,6 +8,9 @@ namespace AxiGitAPI.Tests
     {
         private readonly AxiGitApiFactory _factory = new();
 
+        // The PAT AxiCmdLine sends; deliberately different from the one in server configuration.
+        private const string RequestPat = "test-pat-from-request";
+
         public void Dispose() => _factory.Dispose();
 
         private async Task<(HttpStatusCode Status, JsonElement Body)> ListDirectories(
@@ -19,7 +22,7 @@ namespace AxiGitAPI.Tests
 
             HttpResponseMessage response = await client.PostAsJsonAsync(
                 "/api/git/listdirectories",
-                new { account, repo, managerType });
+                new { account, repo, managerType, token = RequestPat });
 
             string json = await response.Content.ReadAsStringAsync();
 
@@ -216,6 +219,9 @@ namespace AxiGitAPI.Tests
         [InlineData("managerType", null)]
         [InlineData("managerType", "")]
         [InlineData("managerType", "   ")]
+        [InlineData("token", null)]
+        [InlineData("token", "")]
+        [InlineData("token", "   ")]
         public async Task Rejects_a_missing_or_blank_field_with_400_ProblemDetails_naming_it(
             string field,
             string? value)
@@ -225,6 +231,7 @@ namespace AxiGitAPI.Tests
                 ["account"] = "acme",
                 ["repo"] = "axi-products",
                 ["managerType"] = "Product",
+                ["token"] = RequestPat,
                 [field] = value
             };
 
@@ -248,6 +255,7 @@ namespace AxiGitAPI.Tests
             Assert.True(HasErrorFor(problem, "account"));
             Assert.True(HasErrorFor(problem, "repo"));
             Assert.True(HasErrorFor(problem, "managerType"));
+            Assert.True(HasErrorFor(problem, "token"));
         }
 
         [Fact]
@@ -255,7 +263,7 @@ namespace AxiGitAPI.Tests
         {
             var (status, problem, contentType) = await Post(
                 "/api/git/listdirectories",
-                new { account = "acme", repo = "axi-products", managerType = "Widget" });
+                new { account = "acme", repo = "axi-products", managerType = "Widget", token = RequestPat });
 
             Assert.Equal(HttpStatusCode.BadRequest, status);
             Assert.Equal("application/problem+json", contentType);
@@ -292,7 +300,7 @@ namespace AxiGitAPI.Tests
 
             HttpResponseMessage response = await client.PostAsJsonAsync(
                 "/api/git/listdirectories",
-                new { account = "acme", repo = "axi-products", managerType = "Product" });
+                new { account = "acme", repo = "axi-products", managerType = "Product", token = RequestPat });
 
             string raw = await response.Content.ReadAsStringAsync();
 
@@ -305,6 +313,7 @@ namespace AxiGitAPI.Tests
             Assert.DoesNotContain("JsonException", raw);
             Assert.DoesNotContain("at AxiGitAPI", raw);
             Assert.DoesNotContain(AxiGitApiFactory.TestPat, raw);
+            Assert.DoesNotContain(RequestPat, raw);
         }
 
         private async Task<(HttpStatusCode Status, JsonElement Problem, string Raw, string? ContentType)> ListDirectoriesRaw()
@@ -313,7 +322,7 @@ namespace AxiGitAPI.Tests
 
             HttpResponseMessage response = await client.PostAsJsonAsync(
                 "/api/git/listdirectories",
-                new { account = "acme", repo = "axi-products", managerType = "Product" });
+                new { account = "acme", repo = "axi-products", managerType = "Product", token = RequestPat });
 
             string raw = await response.Content.ReadAsStringAsync();
 
@@ -338,6 +347,7 @@ namespace AxiGitAPI.Tests
             Assert.Equal("application/problem+json", contentType);
             Assert.Equal(404, problem.GetProperty("status").GetInt32());
             Assert.DoesNotContain(AxiGitApiFactory.TestPat, raw);
+            Assert.DoesNotContain(RequestPat, raw);
         }
 
         [Fact]
@@ -354,15 +364,15 @@ namespace AxiGitAPI.Tests
             Assert.Equal("application/problem+json", contentType);
             Assert.Equal(404, problem.GetProperty("status").GetInt32());
             Assert.DoesNotContain(AxiGitApiFactory.TestPat, raw);
+            Assert.DoesNotContain(RequestPat, raw);
         }
 
         [Theory]
-        [InlineData(HttpStatusCode.Unauthorized)]
         [InlineData(HttpStatusCode.Forbidden)]
         [InlineData(HttpStatusCode.InternalServerError)]
         [InlineData(HttpStatusCode.BadGateway)]
         [InlineData(HttpStatusCode.ServiceUnavailable)]
-        public async Task Returns_502_ProblemDetails_when_GitHub_rejects_the_PAT_or_fails(HttpStatusCode gitHubStatus)
+        public async Task Returns_502_ProblemDetails_when_GitHub_fails(HttpStatusCode gitHubStatus)
         {
             _factory.GitHub.Respond(
                 "/repos/acme/axi-products/commits/main",
@@ -375,6 +385,7 @@ namespace AxiGitAPI.Tests
             Assert.Equal("application/problem+json", contentType);
             Assert.Equal(502, problem.GetProperty("status").GetInt32());
             Assert.DoesNotContain(AxiGitApiFactory.TestPat, raw);
+            Assert.DoesNotContain(RequestPat, raw);
             Assert.DoesNotContain("SECRET-GITHUB-BODY", raw);
         }
 
@@ -399,6 +410,7 @@ namespace AxiGitAPI.Tests
             Assert.Equal("application/problem+json", contentType);
             Assert.Equal(502, problem.GetProperty("status").GetInt32());
             Assert.DoesNotContain(AxiGitApiFactory.TestPat, raw);
+            Assert.DoesNotContain(RequestPat, raw);
             Assert.DoesNotContain("SECRET-GITHUB-BODY", raw);
         }
 
@@ -498,6 +510,7 @@ namespace AxiGitAPI.Tests
             Assert.Equal("application/problem+json", contentType);
             Assert.Equal(502, problem.GetProperty("status").GetInt32());
             Assert.DoesNotContain(AxiGitApiFactory.TestPat, raw);
+            Assert.DoesNotContain(RequestPat, raw);
         }
 
         [Fact]
@@ -529,7 +542,7 @@ namespace AxiGitAPI.Tests
 
             var request = new HttpRequestMessage(HttpMethod.Post, "/api/git/listdirectories")
             {
-                Content = JsonContent.Create(new { account = "acme", repo = "axi-products", managerType = "Product" })
+                Content = JsonContent.Create(new { account = "acme", repo = "axi-products", managerType = "Product", token = RequestPat })
             };
             request.Headers.Add("Origin", "https://axicmdline.example");
 
@@ -623,7 +636,7 @@ namespace AxiGitAPI.Tests
         }
 
         [Fact]
-        public async Task Authenticates_to_GitHub_with_the_configured_PAT_and_ignores_any_token_in_the_request()
+        public async Task Authenticates_to_GitHub_with_the_PAT_in_the_request_not_the_configured_one()
         {
             _factory.GitHub.Repository(
                 "acme", "axi-products", "c0ffee1",
@@ -634,15 +647,55 @@ namespace AxiGitAPI.Tests
 
             HttpResponseMessage response = await client.PostAsJsonAsync(
                 "/api/git/listdirectories",
-                new { account = "acme", repo = "axi-products", managerType = "Product", token = "token-from-request" });
+                new { account = "acme", repo = "axi-products", managerType = "Product", token = "  pat-with-spaces  " });
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.NotEmpty(_factory.GitHub.Requests);
             Assert.All(_factory.GitHub.Requests, request =>
             {
                 Assert.Equal("Bearer", request.Headers.Authorization?.Scheme);
-                Assert.Equal(AxiGitApiFactory.TestPat, request.Headers.Authorization?.Parameter);
+                Assert.Equal("pat-with-spaces", request.Headers.Authorization?.Parameter);
             });
+        }
+
+        [Fact]
+        public async Task Uses_each_request_s_own_PAT()
+        {
+            _factory.GitHub.Repository(
+                "acme", "axi-products", "c0ffee1",
+                "Customer/",
+                "Customer/Version1/");
+
+            HttpClient client = _factory.CreateClient();
+
+            await client.PostAsJsonAsync(
+                "/api/git/listdirectories",
+                new { account = "acme", repo = "axi-products", managerType = "Product", token = "first-pat" });
+            await client.PostAsJsonAsync(
+                "/api/git/listdirectories",
+                new { account = "acme", repo = "axi-products", managerType = "Product", token = "second-pat" });
+
+            Assert.Equal(
+                new[] { "first-pat", "first-pat", "second-pat", "second-pat" },
+                _factory.GitHub.Requests.Select(r => r.Headers.Authorization?.Parameter).ToArray());
+        }
+
+        [Fact]
+        public async Task Returns_401_ProblemDetails_when_GitHub_rejects_the_PAT()
+        {
+            _factory.GitHub.Respond(
+                "/repos/acme/axi-products/commits/main",
+                HttpStatusCode.Unauthorized,
+                new { message = "Bad credentials SECRET-GITHUB-BODY" });
+
+            var (status, problem, raw, contentType) = await ListDirectoriesRaw();
+
+            Assert.Equal(HttpStatusCode.Unauthorized, status);
+            Assert.Equal("application/problem+json", contentType);
+            Assert.Equal(401, problem.GetProperty("status").GetInt32());
+            Assert.Equal("GitHub rejected the PAT.", problem.GetProperty("title").GetString());
+            Assert.DoesNotContain("SECRET-GITHUB-BODY", raw);
+            Assert.DoesNotContain(RequestPat, raw);
         }
     }
 }

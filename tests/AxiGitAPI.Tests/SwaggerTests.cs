@@ -32,7 +32,7 @@ namespace AxiGitAPI.Tests
             Assert.False(string.IsNullOrWhiteSpace(operation.GetProperty("summary").GetString()));
 
             string[] statuses = operation.GetProperty("responses").EnumerateObject().Select(r => r.Name).ToArray();
-            Assert.Equal(new[] { "200", "400", "404", "500", "502" }, statuses.OrderBy(s => s).ToArray());
+            Assert.Equal(new[] { "200", "400", "401", "404", "500", "502" }, statuses.OrderBy(s => s).ToArray());
         }
 
         [Fact]

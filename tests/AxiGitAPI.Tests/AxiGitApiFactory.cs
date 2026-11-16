@@ -6,8 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AxiGitAPI.Tests
 {
-    // Hosts the real AxiGIT API in memory. Only GitHub is faked (StubGitHub),
-    // and configuration supplies a known test PAT.
+    // Hosts the real AxiGIT API in memory. Only GitHub is faked (StubGitHub).
+    // Configuration still holds a known PAT, so tests can prove ListDirectories
+    // uses the request's PAT instead and never leaks the configured one.
     public class AxiGitApiFactory : WebApplicationFactory<Program>
     {
         public const string TestPat = "test-pat-from-config";

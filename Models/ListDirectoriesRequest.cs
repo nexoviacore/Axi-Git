@@ -15,5 +15,10 @@ namespace AxiGitAPI.Models
         [Required]
         [KnownManagerType]
         public string ManagerType { get; set; } = string.Empty;
+
+        // The GitHub PAT configured in AxiCmdLine for this Manager Type.
+        // Used only for this request's GitHub calls; never logged or returned.
+        [Required]
+        public string Token { get; set; } = string.Empty;
     }
 }

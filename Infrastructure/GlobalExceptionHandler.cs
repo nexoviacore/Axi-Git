@@ -34,6 +34,11 @@ namespace AxiGitAPI.Infrastructure
                     "Repository not found.",
                     exception.Message),
 
+                GitHubPatRejectedException => (
+                    StatusCodes.Status401Unauthorized,
+                    "GitHub rejected the PAT.",
+                    exception.Message),
+
                 GitHubApiException => (
                     StatusCodes.Status502BadGateway,
                     "GitHub request failed.",
