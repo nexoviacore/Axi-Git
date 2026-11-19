@@ -94,7 +94,9 @@ namespace AxiGitAPI.Controllers
                         request.GitBranch,
                         request.ManagerType,
                         request.EnsureRepository,
-                        request.Compress);
+                        request.Compress,
+                        request.Username,
+                        request.Token);
 
                 _logger.LogInformation(
                     "Product pushed successfully: {ProductName}",
@@ -107,7 +109,9 @@ namespace AxiGitAPI.Controllers
                     request.ProductVersion,
                     request.ProductAuthor,
                     request.GitBranch,
-                    request.ManagerType);
+                    request.ManagerType,
+                   request.Username,
+                   request.Token);
 
                 _logger.LogInformation(
                     "Product details updated successfully for {ProductName}",

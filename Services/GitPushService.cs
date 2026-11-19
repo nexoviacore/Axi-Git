@@ -1,10 +1,11 @@
-﻿using LibGit2Sharp;
+﻿using AxiGitAPI.Models;
+using LibGit2Sharp;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using System.Text.Json;
-using System.IO.Compression;
 using Microsoft.Extensions.Http;
-using AxiGitAPI.Models;
+using Microsoft.Extensions.Logging;
+using System.IO.Compression;
+using System.Security.Principal;
+using System.Text.Json;
 
 namespace AxiGitAPI.Services
 {
@@ -42,7 +43,9 @@ namespace AxiGitAPI.Services
     string gitBranch,
     string managerType,
     bool ensureRepository,
-    bool compress)
+    bool compress,
+    string username,
+    string token)
         {
             try
             {
@@ -60,11 +63,25 @@ namespace AxiGitAPI.Services
                 if (string.IsNullOrWhiteSpace(gitBranch))
                     gitBranch = "main";
 
-                string username =
-                    _configuration["GitHub:Username"];
+                //string username =
+                //    _configuration["GitHub:Username"];
 
-                string token =
-                    _configuration["GitHub:Token"];
+                //string token =
+                //    _configuration["GitHub:Token"];
+
+                if (string.IsNullOrWhiteSpace(username))
+                    username = _configuration["GitHub:Username"];
+
+                if (string.IsNullOrWhiteSpace(token))
+                    token = _configuration["GitHub:Token"];
+
+                if (string.IsNullOrWhiteSpace(username))
+                    throw new InvalidOperationException(
+                        "Git username is missing in both request payload and appsettings file.");
+
+                if (string.IsNullOrWhiteSpace(token))
+                    throw new InvalidOperationException(
+                        "Git Token is missing in both request payload and appsettings file.");
 
                 string repoOwner =
                     _configuration["GitHub:RepoOwner"];
@@ -436,13 +453,37 @@ namespace AxiGitAPI.Services
     string productVersion,
     string productAuthor,
     string gitBranch,
-    string managerType)
+    string managerType,
+    string username,
+    string token)
         {
-            string username =
-                _configuration["GitHub:Username"];
+            //string username =
+            //    _configuration["GitHub:Username"];
 
-            string token =
-                _configuration["GitHub:Token"];
+            //string token =
+            //    _configuration["GitHub:Token"];
+
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                username = _configuration["GitHub:Username"];
+            }
+
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                token = _configuration["GitHub:Token"];
+            }
+
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new Exception(
+                    "GitHub Username is missing in both request payload and configuration.");
+            }
+
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                throw new Exception(
+                    "GitHub Token is missing in both request payload and configuration.");
+            }
 
             string workingRoot =
                 _configuration["GitHub:WorkingDirectory"];

@@ -36,5 +36,9 @@
         public bool EnsureRepository { get; set; }
 
         public bool Compress { get; set; }
+
+        public string? Username { get; set; }
+
+        public string? Token{ get; set; }
     }
 }
